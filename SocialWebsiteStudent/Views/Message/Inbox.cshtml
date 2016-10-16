@@ -1,0 +1,39 @@
+﻿@model IEnumerable<SocialWebsiteStudent.Models.Message>
+
+@{
+    ViewBag.Title = "Inbox";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Prywatne wiadomości</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            Od:
+        </th>
+        <th>
+            Tytuł wiadomości:
+        </th>
+        <th>
+            Data wysłania:
+        </th>
+
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromUserId)
+           
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MessageTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+        </td>
+    </tr>
+}
+
+</table>

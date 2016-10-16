@@ -1,0 +1,28 @@
+﻿@model SocialWebsiteStudent.Models.IndexViewModel
+@{
+    ViewBag.Title = "Twój Profil";
+}
+
+<h2>@ViewBag.Title  </h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+    <h4>Zmień ustawienia swojego konta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Hasło:</dt>
+        <dd>
+            [
+            @if (Model.HasPassword)
+            {
+                @Html.ActionLink("Zmień hasło", "ChangePassword")
+            }
+            else
+            {
+                @Html.ActionLink("Utwórz nowe hasło", "SetPassword")
+            }
+            ]
+        </dd>
+
+    </dl>
+</div>

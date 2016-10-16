@@ -1,0 +1,36 @@
+﻿@model List<SocialWebsiteStudent.Models.Post>
+@{
+
+    ViewBag.Title = "WallPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+@using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
+{
+    <p>
+
+        @Html.TextBox("PostContents")
+        <input type="submit" value="Wyślij"/>
+    </p>
+}
+
+
+@foreach (var item in Model)
+{
+    <p>
+        <span style="font-weight: bolder">
+                        @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+                        Data Postu: @Html.DisplayFor(modelItem => item.PostDateTime)
+                    </span>
+        <br/>
+        @Html.DisplayFor(modelItem => item.PostContent)
+
+        @foreach (var item2 in item.Comment)
+        {
+
+            @Html.DisplayFor(item2Model => item2.CommentContent)
+        }
+    </p>
+}
