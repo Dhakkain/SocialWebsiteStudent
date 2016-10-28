@@ -22,6 +22,33 @@ namespace SocialWebsiteStudent.Controllers
             return View(postFromDatabase);
         }
 
+        //Only register user can post new comment
+        //POST
+        [Authorize]
+        [HttpPost]
+        public ActionResult PostingComment(string commentContents, int id)
+        {
+            //Get ID of user 
+            var currentUserId = User.Identity.GetUserId();
+            //Get object of Current login user
+            var currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
+
+            //Create new object of Post - new Post
+            var newComment = new Comment
+            {
+                CommentContent = commentContents,
+                CommentDateTime = DateTime.Now,
+                ApplicationUser = currentUser,
+                PostId = id
+            };
+
+            //Add new Post to database
+            _db.Comments.Add(newComment);
+            //Save changes in database 
+            _db.SaveChanges();
+            return RedirectToAction("WallPost");
+        }
+
         //Only register user can post new topic
         //POST
         [Authorize]

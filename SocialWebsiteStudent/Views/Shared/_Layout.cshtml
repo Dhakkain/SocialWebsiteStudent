@@ -21,11 +21,13 @@
     </div>
     <div class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-            <li>@Html.ActionLink("Prywate Wiadomości", "Inbox", "Message")</li>
+            <li style="margin-top: 13px">@Html.TextBox("Search")<li>
+            <li>@Html.ActionLink("Szukaj", "Index", "Search")</li>
+            <li>@Html.ActionLink("Prywatne wiadomości", "Inbox", "Message")</li>
+
         </ul>
         @Html.Partial("_LoginPartial")
     </div>
-</div>
 </div>
 <div class="container body-content">
     @RenderBody()

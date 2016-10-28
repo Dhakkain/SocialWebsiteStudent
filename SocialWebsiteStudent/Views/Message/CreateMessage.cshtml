@@ -1,0 +1,15 @@
+﻿@model dynamic
+
+@{
+    ViewBag.Title = "Utwórz nową wiadomość";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nowa wiadomość</h2>
+
+@using (Html.BeginForm("CreateNewMessage", "Message", FormMethod.Post))
+{
+    <textarea name="toUser" placeholder="Do użytkownika ..."></textarea>
+    <textarea name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px" class="form-control"></textarea>
+    <input type="submit" value="Wyślij" style="margin-top: 12px" />
+}

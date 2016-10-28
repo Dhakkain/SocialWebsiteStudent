@@ -1,21 +1,17 @@
 ﻿@model List<SocialWebsiteStudent.Models.Post>
 @{
-
     ViewBag.Title = "WallPost";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
 @using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
 {
-    <p>
 
-        @Html.TextBox("PostContents")
-        <input type="submit" value="Wyślij"/>
-    </p>
+    <textarea name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px" class="form-control">
+    </textarea>
+    <input type="submit" value="Wyślij" style="margin-top: 12px" />
 }
-
+ 
 
 @foreach (var item in Model)
 {
@@ -29,8 +25,20 @@
 
         @foreach (var item2 in item.Comment)
         {
-
-            @Html.DisplayFor(item2Model => item2.CommentContent)
+            <p>
+                @Html.DisplayFor(item2Model => item2.ApplicationUser.UserName)
+                Data Komentarza: @Html.DisplayFor(item2Model => item2.CommentDateTime)
+                <br/>
+                @Html.DisplayFor(item2Model => item2.CommentContent)
+            </p>
+        }
+        @using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
+        {
+            <p>
+                @Html.HiddenFor(itemModel => item.ID)
+                @Html.TextBox("CommentContent")
+                <input type="submit" value="Skomentuj"/>
+            </p>
         }
     </p>
 }

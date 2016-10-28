@@ -12,5 +12,7 @@ namespace SocialWebsiteStudent.Models
 
         public virtual ApplicationUser ApplicationUser { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<TagPost> TagPost { get; set; }
+
     }
 }

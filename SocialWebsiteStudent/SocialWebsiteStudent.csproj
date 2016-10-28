@@ -175,6 +175,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\PostController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -238,13 +239,55 @@
     <Compile Include="Migrations\201610161404233_newMsg.Designer.cs">
       <DependentUpon>201610161404233_newMsg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201610251543595_newModel.cs" />
+    <Compile Include="Migrations\201610251543595_newModel.Designer.cs">
+      <DependentUpon>201610251543595_newModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610251612193_newModel3.cs" />
+    <Compile Include="Migrations\201610251612193_newModel3.Designer.cs">
+      <DependentUpon>201610251612193_newModel3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610252051510_newModel4.cs" />
+    <Compile Include="Migrations\201610252051510_newModel4.Designer.cs">
+      <DependentUpon>201610252051510_newModel4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610252111062_newModel6.cs" />
+    <Compile Include="Migrations\201610252111062_newModel6.Designer.cs">
+      <DependentUpon>201610252111062_newModel6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610252120176_newModel8.cs" />
+    <Compile Include="Migrations\201610252120176_newModel8.Designer.cs">
+      <DependentUpon>201610252120176_newModel8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610252254587_newMode.cs" />
+    <Compile Include="Migrations\201610252254587_newMode.Designer.cs">
+      <DependentUpon>201610252254587_newMode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610260127495_newMode1.cs" />
+    <Compile Include="Migrations\201610260127495_newMode1.Designer.cs">
+      <DependentUpon>201610260127495_newMode1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610281837335_newMsg1.cs" />
+    <Compile Include="Migrations\201610281837335_newMsg1.Designer.cs">
+      <DependentUpon>201610281837335_newMsg1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610281858543_newMsg2.cs" />
+    <Compile Include="Migrations\201610281858543_newMsg2.Designer.cs">
+      <DependentUpon>201610281858543_newMsg2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610281906479_newMsg4.cs" />
+    <Compile Include="Migrations\201610281906479_newMsg4.Designer.cs">
+      <DependentUpon>201610281906479_newMsg4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Post.cs" />
+    <Compile Include="Models\Tag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -299,6 +342,9 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Post\WallPost.cshtml" />
     <Content Include="Views\Message\Inbox.cshtml" />
+    <None Include="Views\Message\CreateMessage.cshtml" />
+    <Content Include="Views\Message\ShowMessage.cshtml" />
+    <Content Include="Views\Search\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -356,6 +402,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610161404233_newMsg.resx">
       <DependentUpon>201610161404233_newMsg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610251543595_newModel.resx">
+      <DependentUpon>201610251543595_newModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610251612193_newModel3.resx">
+      <DependentUpon>201610251612193_newModel3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252051510_newModel4.resx">
+      <DependentUpon>201610252051510_newModel4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252111062_newModel6.resx">
+      <DependentUpon>201610252111062_newModel6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252120176_newModel8.resx">
+      <DependentUpon>201610252120176_newModel8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610252254587_newMode.resx">
+      <DependentUpon>201610252254587_newMode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610260127495_newMode1.resx">
+      <DependentUpon>201610260127495_newMode1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610281837335_newMsg1.resx">
+      <DependentUpon>201610281837335_newMsg1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610281858543_newMsg2.resx">
+      <DependentUpon>201610281858543_newMsg2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610281906479_newMsg4.resx">
+      <DependentUpon>201610281906479_newMsg4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

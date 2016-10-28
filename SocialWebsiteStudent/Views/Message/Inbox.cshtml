@@ -1,9 +1,15 @@
-﻿@model IEnumerable<SocialWebsiteStudent.Models.Message>
+﻿@using Microsoft.Ajax.Utilities
+@model List<SocialWebsiteStudent.Models.Message>
 
 @{
     ViewBag.Title = "Inbox";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+
+<p>
+    @Html.ActionLink("Nowa wiadomość", "CreateNewMessage")
+</p>
 
 <h2>Prywatne wiadomości</h2>
 
@@ -12,28 +18,24 @@
         <th>
             Od:
         </th>
+
         <th>
-            Tytuł wiadomości:
-        </th>
-        <th>
-            Data wysłania:
+            Ostatnia wiadomość:
         </th>
 
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FromUserId)
-           
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MessageTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.DistinctBy(x => x.FromUserName))
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(item.FromUserName.ToString(), "ShowMessage", "Message", new {username = item.FromUserName}, null)
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+            </td>
+        </tr>
+    }
 
 </table>
