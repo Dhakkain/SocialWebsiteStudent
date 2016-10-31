@@ -4,12 +4,21 @@
     ViewBag.Title = "Utwórz nową wiadomość";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="box">
 
-<h2>Nowa wiadomość</h2>
+    <input type="submit" class="btn-lg btn-info" value="Skrzynka odbiorcza" onclick="location.href='@Url.Action("Inbox", "Message")'" />
 
-@using (Html.BeginForm("CreateNewMessage", "Message", FormMethod.Post))
-{
-    <textarea name="toUser" placeholder="Do użytkownika ..."></textarea>
-    <textarea name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px" class="form-control"></textarea>
-    <input type="submit" value="Wyślij" style="margin-top: 12px" />
-}
+
+    <h2>Nowa wiadomość</h2>
+
+    @using (Html.BeginForm("CreateNewMessage", "Message", FormMethod.Post))
+    {
+        <textarea rows="1" name="toUser" placeholder="Do użytkownika ..." style="margin-top: 12px; min-width: 35%; resize: none"></textarea>
+
+        <textarea rows="5" name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
+
+        <input class="btn-info btn-lg" type="submit" value="Wyślij" style="margin-top: 12px"/>
+
+    }
+
+</div>

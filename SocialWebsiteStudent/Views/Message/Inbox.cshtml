@@ -2,40 +2,42 @@
 @model List<SocialWebsiteStudent.Models.Message>
 
 @{
-    ViewBag.Title = "Inbox";
+    ViewBag.Title = "Skrzynka odbiorcza";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="box">
+    <p>
+        <input type="submit" class="btn-lg btn-info" value="Nowa wiadomość" onclick="location.href='@Url.Action("CreateNewMessage", "Message")'" />
 
-<p>
-    @Html.ActionLink("Nowa wiadomość", "CreateNewMessage")
-</p>
+    </p>
 
-<h2>Prywatne wiadomości</h2>
+    <h2>Prywatne wiadomości</h2>
 
-<table class="table">
-    <tr>
-        <th>
-            Od:
-        </th>
-
-        <th>
-            Ostatnia wiadomość:
-        </th>
-
-    </tr>
-
-    @foreach (var item in Model.DistinctBy(x => x.FromUserName))
-    {
+    <table class="table">
         <tr>
-            <td>
-                @Html.ActionLink(item.FromUserName.ToString(), "ShowMessage", "Message", new {username = item.FromUserName}, null)
+            <th>
+                Od:
+            </th>
 
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
-            </td>
+            <th>
+                Ostatnia wiadomość:
+            </th>
+
         </tr>
-    }
 
-</table>
+        @foreach (var item in Model.DistinctBy(x => x.FromUserName))
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.FromUserName.ToString(), "ShowMessage", "Message", new { username = item.FromUserName }, null)
+
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

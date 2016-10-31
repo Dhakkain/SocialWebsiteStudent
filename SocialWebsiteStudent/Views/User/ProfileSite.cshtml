@@ -1,0 +1,30 @@
+﻿@model List<SocialWebsiteStudent.Models.Post>
+
+@{
+    ViewBag.Title = "GetProfile";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@foreach (var item in Model)
+{
+    <p>
+        <span style="font-weight: bolder">
+            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+            Data Postu: @Html.DisplayFor(modelItem => item.PostDateTime)
+        </span>
+        <br />
+        @Html.DisplayFor(modelItem => item.PostContent)
+
+        @foreach (var item2 in item.Comment)
+        {
+        <p>
+            @Html.DisplayFor(item2Model => item2.ApplicationUser.UserName)
+            Data Komentarza: @Html.DisplayFor(item2Model => item2.CommentDateTime)
+            <br />
+            @Html.DisplayFor(item2Model => item2.CommentContent)
+        </p>
+        }
+        
+        </p>
+}

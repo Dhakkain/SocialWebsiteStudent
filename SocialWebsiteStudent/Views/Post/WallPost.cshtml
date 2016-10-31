@@ -1,44 +1,72 @@
-﻿@model List<SocialWebsiteStudent.Models.Post>
+﻿@using System.Web.Mvc.Html
+@using Microsoft.AspNet.Identity
+@model List<SocialWebsiteStudent.Models.Post>
 @{
-    ViewBag.Title = "WallPost";
+    ViewBag.Title = "Wpisy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="box">
 
-@using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
-{
 
-    <textarea name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px" class="form-control">
-    </textarea>
-    <input type="submit" value="Wyślij" style="margin-top: 12px" />
-}
- 
+    <h3>Co słychać?</h3>
+    @using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
+    {
+        <textarea rows="3" name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
+        <p class="text-center">
+            <input class="btn-lg btn-primary " type="submit" value="Wyślij" style="margin-top: 12px; padding-left: 80px; padding-right: 80px"/>
+        </p>
+    }
+</div>
 
 @foreach (var item in Model)
 {
-    <p>
-        <span style="font-weight: bolder">
-                        @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-                        Data Postu: @Html.DisplayFor(modelItem => item.PostDateTime)
-                    </span>
-        <br/>
+    <div class="PostBox">
+        <div class="author ">
+            <a href=@Url.Action("ProfileSite", "User", new {name = item.ApplicationUser.UserName}, null)>
+                @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
+            </a>
+
+            @Html.DisplayFor(modelItem => item.PostDateTime)
+
+
+            @if (item.ApplicationUser.Id == User.Identity.GetUserId())
+            {
+                <div class="btn-group" style="float: right;">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li >
+                            <a href="@Url.Action("DeletePost", "Post", new {id = item.ID}, null)">Usuń Post</a>
+                        </li>
+                    </ul>
+
+                </div>
+            }
+        </div>
+
         @Html.DisplayFor(modelItem => item.PostContent)
 
-        @foreach (var item2 in item.Comment)
-        {
-            <p>
-                @Html.DisplayFor(item2Model => item2.ApplicationUser.UserName)
-                Data Komentarza: @Html.DisplayFor(item2Model => item2.CommentDateTime)
-                <br/>
+        <div class="comment">
+            @foreach (var item2 in item.Comment)
+            {
+                <div class="author">
+                    <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>@Html.DisplayFor(modelItem => item2.ApplicationUser.UserName)</a>
+
+                    @Html.DisplayFor(item2Model => item2.CommentDateTime)
+
+                </div>
+
                 @Html.DisplayFor(item2Model => item2.CommentContent)
-            </p>
-        }
-        @using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
-        {
-            <p>
-                @Html.HiddenFor(itemModel => item.ID)
-                @Html.TextBox("CommentContent")
-                <input type="submit" value="Skomentuj"/>
-            </p>
-        }
-    </p>
+            }
+            @using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
+            {
+                <p>
+                    @Html.Hidden("id", item.ID)
+                    <textarea name="commentContents" placeholder="Skomentuj!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
+                    <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px"/>
+                </p>
+            }
+        </div>
+
+    </div>
 }

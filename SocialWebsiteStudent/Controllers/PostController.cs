@@ -17,7 +17,7 @@ namespace SocialWebsiteStudent.Controllers
         public ActionResult WallPost()
         {
             //Post orderby date of posting
-            var postFromDatabase = _db.Posts.OrderByDescending(x=> x.PostDateTime).ToList();
+            var postFromDatabase = _db.Posts.OrderByDescending(x => x.PostDateTime).ToList();
 
             return View(postFromDatabase);
         }
@@ -26,7 +26,7 @@ namespace SocialWebsiteStudent.Controllers
         //POST
         [Authorize]
         [HttpPost]
-        public ActionResult PostingComment(string commentContents, int id)
+        public ActionResult PostingComment(int id, string commentContents)
         {
             //Get ID of user 
             var currentUserId = User.Identity.GetUserId();
@@ -72,6 +72,15 @@ namespace SocialWebsiteStudent.Controllers
             _db.Posts.Add(newPost);
             //Save changes in database 
             _db.SaveChanges();
+            return RedirectToAction("WallPost");
+        }
+
+        public ActionResult DeletePost(int id)
+        {
+            var deletePost = _db.Posts.Find(id);
+            _db.Posts.Remove(deletePost);
+            _db.SaveChanges();
+
             return RedirectToAction("WallPost");
         }
     }

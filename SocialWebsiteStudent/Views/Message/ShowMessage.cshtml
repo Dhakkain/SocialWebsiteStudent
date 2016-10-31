@@ -5,17 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Konwersacja z: </h2>
 
-@foreach (var item in Model)
-{
-    <p>
-        @Html.DisplayFor(modelItem => item.FromUserName)
-    </p>
-    <p>
-        @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
-    </p>
-    <p>
-        @Html.DisplayFor(modelItem => item.MessageContent)
-    </p>
-}
+<div class="PostBox">
+    <h2>Konwersacja z: </h2>
+
+    @foreach (var item in Model)
+    {
+        <div class="author">
+            @if (item.FromUserName == User.Identity.Name)
+            {
+                <a href=@Url.Action("ProfileSite", "User", new {name = item.FromUserName}, null)>
+                    Ty
+                </a>
+
+                @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+            }
+            else
+            {
+                <a href=@Url.Action("ProfileSite", "User", new {name = item.FromUserName}, null)>
+                    @Html.DisplayFor(modelItem => item.FromUserName)
+                </a>
+                @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+            }
+
+        </div>
+        <p>
+            @Html.DisplayFor(modelItem => item.MessageContent)
+        </p>
+    }
+</div>
