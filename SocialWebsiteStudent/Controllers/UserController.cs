@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Services;
+using System.Web.Services;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers
@@ -19,6 +21,16 @@ namespace SocialWebsiteStudent.Controllers
             return View(profileView.ToList());
         }
 
-     
+        [HttpPost]
+        public JsonResult GetUser(string term)
+        {
+            var result = (from r in _db.Users
+                where r.UserName.StartsWith(term)
+                select new
+                {
+                    startfrom = r.UserName
+                }).Distinct();
+            return Json(result, JsonRequestBehavior.AllowGet);
+        }
     }
 }

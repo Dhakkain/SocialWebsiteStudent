@@ -1,24 +1,50 @@
 ﻿@model dynamic
-
 @{
     ViewBag.Title = "Utwórz nową wiadomość";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+<script type="text/javascript">
+    $(document)
+        .ready(function() {
+            $("#to")
+                .autocomplete({
+                    source: function(request, response) {
+                        $.ajax({
+                            url: "/User/GetUser",
+                            type: "POST",
+                            dataType: "json",
+                            data: { term: request.term },
+                            success: function(data) {
+                                response($.map(data,
+                                    function(item) {
+                                        return { label: item.startfrom };
+                                    }));
+                            }
+                        });
+                    },
+                    messages: { noResults: "", results: "" }
+                });
+
+        });
+</script>
 <div class="box">
 
-    <input type="submit" class="btn-lg btn-info" value="Skrzynka odbiorcza" onclick="location.href='@Url.Action("Inbox", "Message")'" />
+    <input type="submit" class="btn-lg btn-info" value="Skrzynka odbiorcza" onclick="location.href = '@Url.Action("Inbox", "Message")'"/>
 
 
     <h2>Nowa wiadomość</h2>
 
     @using (Html.BeginForm("CreateNewMessage", "Message", FormMethod.Post))
     {
-        <textarea rows="1" name="toUser" placeholder="Do użytkownika ..." style="margin-top: 12px; min-width: 35%; resize: none"></textarea>
+        <textarea rows="1" id="to" name="toUser" placeholder="Do użytkownika ..." style="margin-top: 12px; min-width: 35%; resize: none"></textarea>
 
         <textarea rows="5" name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
 
         <input class="btn-info btn-lg" type="submit" value="Wyślij" style="margin-top: 12px"/>
-
     }
 
 </div>

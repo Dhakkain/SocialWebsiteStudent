@@ -25,6 +25,28 @@ namespace SocialWebsiteStudent.Controllers
         }
 
         [Authorize]
+        [HttpPost]
+        public ActionResult ShowMessage(string toUser, string messageContent)
+        {
+
+            //Create new object of Message 
+            var newMessage = new Message
+            {
+                MessageContent = messageContent,
+                DateTimeOfMessage = DateTime.Now,
+                FromUserName = User.Identity.Name,
+                ToUserName = toUser
+            };
+
+            //Add new Message to database
+            _db.Messages.Add(newMessage);
+            //Save changes in database 
+            _db.SaveChanges();
+
+            return RedirectToAction("ShowMessage","Message", new {username = toUser});
+        }
+
+        [Authorize]
         [HttpGet]
         public ActionResult ShowMessage(string username)
         {
@@ -58,8 +80,7 @@ namespace SocialWebsiteStudent.Controllers
         [HttpPost]
         public ActionResult CreateNewMessage(string toUser, string messageContent)
         {
-            //Get Id of user 
-            var currentUserId = User.Identity.GetUserId();
+            
 
             //Create new object of Message 
             var newMessage = new Message
