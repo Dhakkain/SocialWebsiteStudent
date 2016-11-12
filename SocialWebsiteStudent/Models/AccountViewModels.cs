@@ -31,6 +31,7 @@ namespace SocialWebsiteStudent.Models
         [Required]
         [Display(Name = "Code")]
         public string Code { get; set; }
+
         public string ReturnUrl { get; set; }
 
         [Display(Name = "Pamiętać tą przeglądarkę?")]
@@ -65,12 +66,16 @@ namespace SocialWebsiteStudent.Models
     public class RegisterViewModel
     {
         [Required]
+        [Display(Name = "Nazwa użytkownika")]
+        public string UserName { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} musi być {2} długie.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Hasło")]
         public string Password { get; set; }

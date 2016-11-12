@@ -11,13 +11,12 @@ namespace SocialWebsiteStudent.Controllers
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         //Everyone can view all post on wall
-        //GET 
         [HttpGet]
         [AllowAnonymous]
         public ActionResult WallPost()
         {
             //Post orderby date of posting
-            var postFromDatabase = _db.Posts.OrderByDescending(x => x.PostDateTime).ToList();
+            var postFromDatabase = _db.Posts.OrderByDescending(post => post.PostDateTime).ToList();
 
             return View(postFromDatabase);
         }
@@ -31,7 +30,7 @@ namespace SocialWebsiteStudent.Controllers
             //Get ID of user 
             var currentUserId = User.Identity.GetUserId();
             //Get object of Current login user
-            var currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            var currentUser = _db.Users.FirstOrDefault(user => user.Id == currentUserId);
 
             //Create new object of Post - new Post
             var newComment = new Comment
@@ -58,8 +57,8 @@ namespace SocialWebsiteStudent.Controllers
             //Get ID of user 
             var currentUserId = User.Identity.GetUserId();
             //Get object of Current login user
-            var currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
-
+            var currentUser = _db.Users.FirstOrDefault(user => user.Id == currentUserId);
+           
             //Create new object of Post - new Post
             var newPost = new Post
             {
@@ -77,8 +76,11 @@ namespace SocialWebsiteStudent.Controllers
 
         public ActionResult DeletePost(int id)
         {
+            //Find post in database
             var deletePost = _db.Posts.Find(id);
+            //Remove post and his comments from db
             _db.Posts.Remove(deletePost);
+            //Save
             _db.SaveChanges();
 
             return RedirectToAction("WallPost");

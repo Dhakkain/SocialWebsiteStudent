@@ -5,37 +5,48 @@
     ViewBag.Title = "Wpisy";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="box">
 
+@if (User.Identity.IsAuthenticated == true)
+{
+    <div class="box">
 
-    <h3>Co słychać?</h3>
-    @using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
-    {
-        <textarea rows="3" name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
-        <p class="text-center">
-            <input class="btn-lg btn-primary " type="submit" value="Wyślij" style="margin-top: 12px; padding-left: 80px; padding-right: 80px"/>
-        </p>
-    }
-</div>
+        <div class="style=" justify-content: center ; align-items: center;">
+            <h1>
+                Co słychać?
+            </h1>
+        </div>
+
+        @using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
+        {
+            <img src="@Url.Action("UserPhotos", "User", new {id = User.Identity.GetUserId()})" height="62" width="62" style="float: left; margin-top: 12px;"/>
+            <textarea rows="3" name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px; min-width: 92%; resize: none; float: right"></textarea>
+            <p class="text-center">
+                <input class="btn-lg btn-primary " type="submit" value="Wyślij" style="margin-top: 16px; padding-left: 80px; padding-right: 80px;"/>
+            </p>
+        }
+    </div>
+}
 
 @foreach (var item in Model)
 {
     <div class="PostBox">
-        <div class="author ">
+        <a href=@Url.Action("ProfileSite", "User", new {name = item.ApplicationUser.UserName}, null)>
+            <img src="@Url.Action("UserPhotos", "User", new {id = item.ApplicationUser.Id})" height="42" width="42" style="float: left"/>
+        </a>
+
+        <div class="author">
             <a href=@Url.Action("ProfileSite", "User", new {name = item.ApplicationUser.UserName}, null)>
                 @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
             </a>
 
             @Html.DisplayFor(modelItem => item.PostDateTime)
 
-
             @if (item.ApplicationUser.Id == User.Identity.GetUserId())
             {
                 <div class="btn-group" style="float: right;">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                    </button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li >
+                        <li>
                             <a href="@Url.Action("DeletePost", "Post", new {id = item.ID}, null)">Usuń Post</a>
                         </li>
                     </ul>
@@ -44,29 +55,34 @@
             }
         </div>
 
-        @Html.DisplayFor(modelItem => item.PostContent)
+        <div class="textbox">@Html.DisplayFor(modelItem => item.PostContent)</div>
 
-        <div class="comment">
-            @foreach (var item2 in item.Comment)
-            {
+        @foreach (var item2 in item.Comment)
+        {
+            <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>
+                <img src="@Url.Action("UserPhotos", "User", new {id = item.ApplicationUser.Id})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px"/>
+            </a>
+
+            <div class="comment">
                 <div class="author">
                     <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>@Html.DisplayFor(modelItem => item2.ApplicationUser.UserName)</a>
-
                     @Html.DisplayFor(item2Model => item2.CommentDateTime)
-
                 </div>
-
-                @Html.DisplayFor(item2Model => item2.CommentContent)
-            }
-            @using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
+                <div class="textbox">@Html.DisplayFor(item2Model => item2.CommentContent)</div>
+            </div>
+        }
+        @if (User.Identity.IsAuthenticated == true)
+        {
+            using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
             {
                 <p>
                     @Html.Hidden("id", item.ID)
-                    <textarea name="commentContents" placeholder="Skomentuj!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
-                    <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px"/>
+                    <img src="@Url.Action("UserPhotos", "User", new {id = User.Identity.GetUserId()})" height="45" width="45" style="float: left; margin-top: 12px; margin-right: 12px;"/>
+                    <textarea name="commentContents" placeholder="Skomentuj!" style="margin-top: 12px; min-width: 90%; resize: none"></textarea>
+                    <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px;"/>
                 </p>
             }
-        </div>
+        }
 
     </div>
 }

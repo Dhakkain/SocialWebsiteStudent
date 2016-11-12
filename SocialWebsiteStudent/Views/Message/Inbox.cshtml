@@ -8,7 +8,7 @@
 
 <div class="box">
     <p>
-        <input type="submit" class="btn-lg btn-info" value="Nowa wiadomość" onclick="location.href='@Url.Action("CreateNewMessage", "Message")'" />
+        <input type="submit" class="btn-lg btn-info" value="Nowa wiadomość" onclick="location.href = '@Url.Action("CreateNewMessage", "Message")'"/>
 
     </p>
 
@@ -23,21 +23,36 @@
             <th>
                 Ostatnia wiadomość:
             </th>
-
         </tr>
-
         @foreach (var item in Model.DistinctBy(x => x.FromUserName))
         {
             <tr>
-                <td>
-                    @Html.ActionLink(item.FromUserName.ToString(), "ShowMessage", "Message", new { username = item.FromUserName }, null)
+                @if (item.FromUserName == User.Identity.Name)
+                {
+                <tr>
+                    <td>
 
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
-                </td>
+                        @Html.ActionLink(item.ToUserName.ToString(), "ShowMessage", "Message", new { username = item.ToUserName }, null)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+                    </td>
+                </tr>
+                }
+                @if (item.ToUserName == User.Identity.Name)
+                {
+                    <td>
+                        @Html.ActionLink(item.FromUserName.ToString(), "ShowMessage", "Message", new { username = item.FromUserName }, null)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
+                    </td>
+                }
+               
             </tr>
         }
 
     </table>
 </div>
+

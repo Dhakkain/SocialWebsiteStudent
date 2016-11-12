@@ -548,6 +548,26 @@
     <Compile Include="Migrations\201610281906479_newMsg4.Designer.cs">
       <DependentUpon>201610281906479_newMsg4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611120054445_haha.cs" />
+    <Compile Include="Migrations\201611120054445_haha.Designer.cs">
+      <DependentUpon>201611120054445_haha.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611120251098_haha2.cs" />
+    <Compile Include="Migrations\201611120251098_haha2.Designer.cs">
+      <DependentUpon>201611120251098_haha2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121321352_msgApp.cs" />
+    <Compile Include="Migrations\201611121321352_msgApp.Designer.cs">
+      <DependentUpon>201611121321352_msgApp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121336113_msgAppAS.cs" />
+    <Compile Include="Migrations\201611121336113_msgAppAS.Designer.cs">
+      <DependentUpon>201611121336113_msgAppAS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611121618126_avatary.cs" />
+    <Compile Include="Migrations\201611121618126_avatary.Designer.cs">
+      <DependentUpon>201611121618126_avatary.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -563,6 +583,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Image\noImage.png" />
     <Content Include="Content\PostCommentBox.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
@@ -662,6 +683,7 @@
     <Content Include="Views\Message\ShowMessage.cshtml" />
     <Content Include="Views\Search\Index.cshtml" />
     <Content Include="Views\User\ProfileSite.cshtml" />
+    <Content Include="Views\User\ProfileOptions.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -749,6 +771,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610281906479_newMsg4.resx">
       <DependentUpon>201610281906479_newMsg4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611120054445_haha.resx">
+      <DependentUpon>201611120054445_haha.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611120251098_haha2.resx">
+      <DependentUpon>201611120251098_haha2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121321352_msgApp.resx">
+      <DependentUpon>201611121321352_msgApp.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121336113_msgAppAS.resx">
+      <DependentUpon>201611121336113_msgAppAS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611121618126_avatary.resx">
+      <DependentUpon>201611121618126_avatary.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

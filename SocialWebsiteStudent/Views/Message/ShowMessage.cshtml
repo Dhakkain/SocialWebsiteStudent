@@ -10,11 +10,20 @@
 
 <div class="PostBox">
 
+    <input type="submit" class="btn-lg btn-info" value="Skrzynka odbiorcza" onclick="location.href = '@Url.Action("Inbox", "Message")'"/>
+    <h2>
+        Konwersacja z: <a href=@Url.Action("ProfileSite", "User", new {name = x}, null)>@x</a>
+    </h2>
 
-    <h2>Konwersacja z: <a href=@Url.Action("ProfileSite", "User", new {name = x}, null)>@x</a> </h2>
 
+    @using (Html.BeginForm("ShowMessage", "Message", FormMethod.Post))
+    {
+        @Html.Hidden("toUser", x)
 
-    @foreach (var item in Model)
+        <textarea rows="5" name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
+        <input class="btn-info btn-lg" type="submit" value="Wyślij" style="margin-top: 12px"/>
+    }
+    @foreach (var item in Model.OrderBy(date => date.DateTimeOfMessage.TimeOfDay))
     {
         <div class="author">
             @if (item.FromUserName == User.Identity.Name)
@@ -22,7 +31,6 @@
                 <a href=@Url.Action("ProfileSite", "User", new {name = item.FromUserName}, null)>
                     Ty
                 </a>
-
                 @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
             }
             else
@@ -32,24 +40,10 @@
                 </a>
                 @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
             }
-
         </div>
-
         <p>
-            @Html.DisplayFor(modelItem => item.MessageContent)
+            <span style="white-space: pre-line">@Html.DisplayFor(modelItem => item.MessageContent)
+                </span>
         </p>
     }
-
-
-    @using (Html.BeginForm("ShowMessage", "Message", FormMethod.Post))
-    {
-        @Html.Hidden("toUser", x)
-        <textarea rows="5" name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
-
-        <input class="btn-info btn-lg" type="submit" value="Wyślij" style="margin-top: 12px"/>
-
-    }
-    <input type="submit" class="btn-lg btn-info" value="Skrzynka odbiorcza" onclick="location.href='@Url.Action("Inbox", "Message")'" />
-
-
 </div>

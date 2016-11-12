@@ -1,37 +1,68 @@
-﻿@model List<SocialWebsiteStudent.Models.Post>
+﻿@using System.Threading.Tasks
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model List<SocialWebsiteStudent.Models.Post>
 
 @{
     ViewBag.Title = "Profil użytkownika";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var x = Request.QueryString["name"];
 }
 
-    
+<h1>Profil użytkownika: @x </h1>
 
 
-@foreach (var item in Model)
+@foreach (var post in Model)
 {
     <div class="PostBox">
+        <a href=@Url.Action("ProfileSite", "User", new {name = post.ApplicationUser.UserName}, null)>
+            <img src="@Url.Action("UserPhotos", "User", new {id = post.ApplicationUser.Id})" height="42" width="42" style="float: left" />
+        </a>
 
-        <div class="author ">
-            @Html.DisplayFor(modelItem => item.ApplicationUser.UserName)
-            @Html.DisplayFor(modelItem => item.PostDateTime)
-        </div>
-        @Html.DisplayFor(modelItem => item.PostContent)
+        <div class="author">
 
+            <a href=@Url.Action("ProfileSite", "User", new {name = post.ApplicationUser.UserName}, null)>
+                @Html.DisplayFor(posts => post.ApplicationUser.UserName)
+            </a>
 
-        <div class="comment">
+            @Html.DisplayFor(posts => post.PostDateTime)
 
-            @foreach (var item2 in item.Comment)
+            @if (post.ApplicationUser.Id == User.Identity.GetUserId())
             {
-                <div class="author ">
+                <div class="btn-group" style="float: right;">
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="@Url.Action("DeletePost", "Post", new {id = post.ID}, null)">Usuń Post</a>
+                        </li>
+                    </ul>
 
-                    @Html.DisplayFor(item2Model => item2.ApplicationUser.UserName)
-                    @Html.DisplayFor(item2Model => item2.CommentDateTime)
+                </div>
+            }
+        </div>
+
+        <div class="textbox">@Html.DisplayFor(posts => post.PostContent)</div>
+
+        @foreach (var comment in post.Comment)
+        {
+            <a href=@Url.Action("ProfileSite", "User", new {name = comment.ApplicationUser.UserName}, null)>
+                <img src="@Url.Action("UserPhotos", "User", new {id = post.ApplicationUser.Id})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px" />
+            </a>
+
+            <div class="comment">
+                <div class="author">
+
+                    <a href=@Url.Action("ProfileSite", "User", new {name = comment.ApplicationUser.UserName}, null)>
+                        @Html.DisplayFor(model => comment.ApplicationUser.UserName)
+                    </a>
+                    @Html.DisplayFor(model => comment.CommentDateTime)
                 </div>
 
-                @Html.DisplayFor(item2Model => item2.CommentContent)
-            }
+                <div class="textbox">
+                    @Html.DisplayFor(model => comment.CommentContent)
+                </div>
+            </div>
+        }
 
-        </div>
     </div>
 }

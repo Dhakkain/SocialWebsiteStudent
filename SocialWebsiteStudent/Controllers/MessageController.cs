@@ -16,10 +16,11 @@ namespace SocialWebsiteStudent.Controllers
         [HttpGet]
         public ActionResult Inbox()
         {
-            var inboxMessage = (from m in _db.Messages
-                                where m.ToUserName == User.Identity.Name
-                                orderby m.DateTimeOfMessage descending
-                                select m);
+            //Select all conversation for User who is log in
+            var inboxMessage = (from message in _db.Messages
+                                where message.ToUserName == User.Identity.Name || message.FromUserName == User.Identity.Name
+                                orderby message.DateTimeOfMessage descending
+                                select message);
 
             return View(inboxMessage.ToList());
         }
@@ -53,15 +54,14 @@ namespace SocialWebsiteStudent.Controllers
             //Get ID of user 
             var currentUserId = User.Identity.GetUserId();
             //Get object of Current login user
-            var currentUser = _db.Users.FirstOrDefault(x => x.Id == currentUserId);
+            var currentUser = _db.Users.FirstOrDefault(user => user.Id == currentUserId);
 
-
-
-            var selectMessage = (from m in _db.Messages
-                                 where (m.FromUserName == username && m.ToUserName == currentUser.UserName)
-                                 ||(m.FromUserName == currentUser.UserName && m.ToUserName == username) 
-                                 orderby m.DateTimeOfMessage descending 
-                                 select m).ToList();
+            //Select all message from conversation by two user
+            var selectMessage = (from message in _db.Messages
+                                 where (message.FromUserName == username && message.ToUserName == currentUser.UserName)
+                                 ||(message.FromUserName == currentUser.UserName && message.ToUserName == username) 
+                                 orderby message.DateTimeOfMessage descending 
+                                 select message).ToList();
 
 
             return View(selectMessage);
@@ -80,8 +80,6 @@ namespace SocialWebsiteStudent.Controllers
         [HttpPost]
         public ActionResult CreateNewMessage(string toUser, string messageContent)
         {
-            
-
             //Create new object of Message 
             var newMessage = new Message
             {

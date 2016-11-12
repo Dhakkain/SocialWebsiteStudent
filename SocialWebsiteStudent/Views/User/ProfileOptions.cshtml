@@ -1,0 +1,26 @@
+﻿@model SocialWebsiteStudent.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "ProfileOptions";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="PostBox">
+
+    <h2>Opcje profilu</h2>
+    <h3> Zmiana hasła: </h3>
+    @using (Html.BeginForm("ChangePassword", "Manage", "Manage"))
+    {
+        <input type="submit" class="btn-primary " value="Zmien hasło" style="margin-top: 12px" />
+
+    }
+    <h3>Zmiana avatara:</h3>
+    @using (Html.BeginForm("ProfileAvatar", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <input type="file" class="btn-primary" name="UserPhoto" id="fileUpload" accept=".png,.jpg,.jpeg,.gif,.tif"/>
+        <input class="btn-primary" type="submit" value="Dodaj Avatar" style="margin-top: 12px; padding-left: 80px; padding-right: 80px"/>
+    }
+
+</div>

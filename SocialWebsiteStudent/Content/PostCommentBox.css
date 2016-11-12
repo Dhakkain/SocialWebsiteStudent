@@ -1,5 +1,4 @@
-﻿body { }
-
+﻿
 .box {
     color: #000;
     margin: 65px auto;
@@ -31,9 +30,9 @@
 }
 
 
-
 .PostBox > .author {
     font-weight: bolder;
+    margin-left: 50px;
     border-bottom: 1px;
     border-bottom-style: solid;
 }
@@ -41,11 +40,26 @@
 
 .PostBox > .comment {
     padding-top: 20px;
-    padding-left: 75px;
+    padding-left: 55px;
+
 }
 
 .comment > .author {
     font-weight: bold;
+    margin-left: 35px;
     border-bottom: 1px;
     border-bottom-style: solid;
+}
+
+
+.PostBox > .textbox {
+    white-space: pre-line;
+    padding-top: 5px;
+    padding-left: 55px;
+}
+
+.comment > .textbox {
+    white-space: pre-line;
+    padding-top: 5px;
+    padding-left: 45px;
 }
