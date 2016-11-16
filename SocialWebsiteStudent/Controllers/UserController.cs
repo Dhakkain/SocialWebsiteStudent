@@ -21,11 +21,13 @@ namespace SocialWebsiteStudent.Controllers
         public ActionResult ProfileSite(string name)
         {
             var profileView = (from post in _db.Posts
-                               where post.ApplicationUser.UserName == name
-                               select post);
+                where post.ApplicationUser.UserName == name 
+                select post);
 
             return View(profileView.ToList());
         }
+
+      
 
         [HttpGet]
         public ActionResult ProfileOptions()
@@ -61,18 +63,17 @@ namespace SocialWebsiteStudent.Controllers
         public JsonResult GetUser(string term)
         {
             var result = (from user in _db.Users
-                where user.UserName.StartsWith(term)
-                select new
-                {
-                    startfrom = user.UserName
-                }).Distinct();
+                          where user.UserName.StartsWith(term)
+                          select new
+                          {
+                              startfrom = user.UserName
+                          }).Distinct();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public FileContentResult UserPhotos(string id)
+        public FileContentResult UserPhotos(string name)
         {
-
-            if (id == null)
+            if (name == null)
             {
                 string fileName = HttpContext.Server.MapPath(@"~/Content/Image/noImage.png");
 
@@ -81,15 +82,14 @@ namespace SocialWebsiteStudent.Controllers
                 long imageFileLength = fileInfo.Length;
                 FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
-                imageData = br.ReadBytes((int)imageFileLength);
+                imageData = br.ReadBytes((int) imageFileLength);
 
                 return File(imageData, "image/png");
-
             }
 
             // to get the user details to load user Image 
             var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-            var userImage = bdUsers.Users.FirstOrDefault(x => x.Id == id);
+            var userImage = bdUsers.Users.FirstOrDefault(x => x.UserName == name);
 
             return new FileContentResult(userImage.UserPhoto, "image/jpeg");
         }

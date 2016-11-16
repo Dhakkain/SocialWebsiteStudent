@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using SocialWebsiteStudent.Models;
@@ -58,14 +60,39 @@ namespace SocialWebsiteStudent.Controllers
             var currentUserId = User.Identity.GetUserId();
             //Get object of Current login user
             var currentUser = _db.Users.FirstOrDefault(user => user.Id == currentUserId);
-           
+
             //Create new object of Post - new Post
             var newPost = new Post
             {
                 PostContent = postContents,
                 PostDateTime = DateTime.Now,
-                ApplicationUser = currentUser
+                ApplicationUser = currentUser,
+                Tags = new List<Tag>()
             };
+
+            var regex = new Regex(@"#\w+");
+            var matches = regex.Matches(postContents);
+
+            var existTag = _db.Tags.Select(x => x.TagName);
+            foreach (Match m in matches)
+            {
+                if (existTag.Contains(m.Value))
+                {
+                    var tagInPost = _db.Tags.Single(t => t.TagName == m.Value);
+                    newPost.Tags.Add(tagInPost);
+                }
+                else
+                {
+                    var newTag = new Tag()
+                    {
+                        TagName = m.Value
+                    };
+                    _db.Tags.Add(newTag);
+                    newPost.Tags.Add(newTag);
+                    _db.Tags.Add(newTag);
+                }
+            }
+
 
             //Add new Post to database
             _db.Posts.Add(newPost);

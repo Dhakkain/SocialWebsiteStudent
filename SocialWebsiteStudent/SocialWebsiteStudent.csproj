@@ -48,6 +48,10 @@
       <HintPath>..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Kendo.Mvc, Version=2016.2.616.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Bin\Kendo.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNetCore.Antiforgery, Version=1.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNetCore.Antiforgery.1.0.0\lib\net451\Microsoft.AspNetCore.Antiforgery.dll</HintPath>
       <Private>True</Private>
@@ -448,126 +452,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610081402134_InitialCreate.cs" />
-    <Compile Include="Migrations\201610081402134_InitialCreate.Designer.cs">
-      <DependentUpon>201610081402134_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610081610281_PostCommentTable.cs" />
-    <Compile Include="Migrations\201610081610281_PostCommentTable.Designer.cs">
-      <DependentUpon>201610081610281_PostCommentTable.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610081620278_PostCommentTable2.cs" />
-    <Compile Include="Migrations\201610081620278_PostCommentTable2.Designer.cs">
-      <DependentUpon>201610081620278_PostCommentTable2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610081732407_new.cs" />
-    <Compile Include="Migrations\201610081732407_new.Designer.cs">
-      <DependentUpon>201610081732407_new.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610081738215_new8.cs" />
-    <Compile Include="Migrations\201610081738215_new8.Designer.cs">
-      <DependentUpon>201610081738215_new8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610081844383_new99.cs" />
-    <Compile Include="Migrations\201610081844383_new99.Designer.cs">
-      <DependentUpon>201610081844383_new99.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090000149_new991.cs" />
-    <Compile Include="Migrations\201610090000149_new991.Designer.cs">
-      <DependentUpon>201610090000149_new991.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090005267_UpdatePost.cs" />
-    <Compile Include="Migrations\201610090005267_UpdatePost.Designer.cs">
-      <DependentUpon>201610090005267_UpdatePost.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090014035_UpdatePost1.cs" />
-    <Compile Include="Migrations\201610090014035_UpdatePost1.Designer.cs">
-      <DependentUpon>201610090014035_UpdatePost1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090033222_UpdatePost4.cs" />
-    <Compile Include="Migrations\201610090033222_UpdatePost4.Designer.cs">
-      <DependentUpon>201610090033222_UpdatePost4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090034422_UpdatePost5.cs" />
-    <Compile Include="Migrations\201610090034422_UpdatePost5.Designer.cs">
-      <DependentUpon>201610090034422_UpdatePost5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090040420_UpdatePost6.cs" />
-    <Compile Include="Migrations\201610090040420_UpdatePost6.Designer.cs">
-      <DependentUpon>201610090040420_UpdatePost6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090108270_Update8.cs" />
-    <Compile Include="Migrations\201610090108270_Update8.Designer.cs">
-      <DependentUpon>201610090108270_Update8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610090139441_Update43.cs" />
-    <Compile Include="Migrations\201610090139441_Update43.Designer.cs">
-      <DependentUpon>201610090139441_Update43.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610161404233_newMsg.cs" />
-    <Compile Include="Migrations\201610161404233_newMsg.Designer.cs">
-      <DependentUpon>201610161404233_newMsg.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610251543595_newModel.cs" />
-    <Compile Include="Migrations\201610251543595_newModel.Designer.cs">
-      <DependentUpon>201610251543595_newModel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610251612193_newModel3.cs" />
-    <Compile Include="Migrations\201610251612193_newModel3.Designer.cs">
-      <DependentUpon>201610251612193_newModel3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610252051510_newModel4.cs" />
-    <Compile Include="Migrations\201610252051510_newModel4.Designer.cs">
-      <DependentUpon>201610252051510_newModel4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610252111062_newModel6.cs" />
-    <Compile Include="Migrations\201610252111062_newModel6.Designer.cs">
-      <DependentUpon>201610252111062_newModel6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610252120176_newModel8.cs" />
-    <Compile Include="Migrations\201610252120176_newModel8.Designer.cs">
-      <DependentUpon>201610252120176_newModel8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610252254587_newMode.cs" />
-    <Compile Include="Migrations\201610252254587_newMode.Designer.cs">
-      <DependentUpon>201610252254587_newMode.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610260127495_newMode1.cs" />
-    <Compile Include="Migrations\201610260127495_newMode1.Designer.cs">
-      <DependentUpon>201610260127495_newMode1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610281837335_newMsg1.cs" />
-    <Compile Include="Migrations\201610281837335_newMsg1.Designer.cs">
-      <DependentUpon>201610281837335_newMsg1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610281858543_newMsg2.cs" />
-    <Compile Include="Migrations\201610281858543_newMsg2.Designer.cs">
-      <DependentUpon>201610281858543_newMsg2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201610281906479_newMsg4.cs" />
-    <Compile Include="Migrations\201610281906479_newMsg4.Designer.cs">
-      <DependentUpon>201610281906479_newMsg4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611120054445_haha.cs" />
-    <Compile Include="Migrations\201611120054445_haha.Designer.cs">
-      <DependentUpon>201611120054445_haha.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611120251098_haha2.cs" />
-    <Compile Include="Migrations\201611120251098_haha2.Designer.cs">
-      <DependentUpon>201611120251098_haha2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611121321352_msgApp.cs" />
-    <Compile Include="Migrations\201611121321352_msgApp.Designer.cs">
-      <DependentUpon>201611121321352_msgApp.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611121336113_msgAppAS.cs" />
-    <Compile Include="Migrations\201611121336113_msgAppAS.Designer.cs">
-      <DependentUpon>201611121336113_msgAppAS.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201611121618126_avatary.cs" />
-    <Compile Include="Migrations\201611121618126_avatary.Designer.cs">
-      <DependentUpon>201611121618126_avatary.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Comment.cs" />
@@ -584,7 +468,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Image\noImage.png" />
+    <Content Include="Content\jquery.tagit.css" />
     <Content Include="Content\PostCommentBox.css" />
+    <Content Include="Content\tagit.ui-zendesk.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -681,13 +567,15 @@
     <Content Include="Views\Message\Inbox.cshtml" />
     <None Include="Views\Message\CreateMessage.cshtml" />
     <Content Include="Views\Message\ShowMessage.cshtml" />
-    <Content Include="Views\Search\Index.cshtml" />
+    <Content Include="Views\Search\ErrorResult.cshtml" />
     <Content Include="Views\User\ProfileSite.cshtml" />
     <Content Include="Views\User\ProfileOptions.cshtml" />
+    <Content Include="Views\Search\TagFoundResult.cshtml" />
+    <Content Include="Views\Tag\ShowPostFromTag.cshtml" />
+    <Content Include="Views\Search\ContentFoundResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Tag\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -695,98 +583,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201610081402134_InitialCreate.resx">
-      <DependentUpon>201610081402134_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610081610281_PostCommentTable.resx">
-      <DependentUpon>201610081610281_PostCommentTable.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610081620278_PostCommentTable2.resx">
-      <DependentUpon>201610081620278_PostCommentTable2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610081732407_new.resx">
-      <DependentUpon>201610081732407_new.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610081738215_new8.resx">
-      <DependentUpon>201610081738215_new8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610081844383_new99.resx">
-      <DependentUpon>201610081844383_new99.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090000149_new991.resx">
-      <DependentUpon>201610090000149_new991.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090005267_UpdatePost.resx">
-      <DependentUpon>201610090005267_UpdatePost.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090014035_UpdatePost1.resx">
-      <DependentUpon>201610090014035_UpdatePost1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090033222_UpdatePost4.resx">
-      <DependentUpon>201610090033222_UpdatePost4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090034422_UpdatePost5.resx">
-      <DependentUpon>201610090034422_UpdatePost5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090040420_UpdatePost6.resx">
-      <DependentUpon>201610090040420_UpdatePost6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090108270_Update8.resx">
-      <DependentUpon>201610090108270_Update8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610090139441_Update43.resx">
-      <DependentUpon>201610090139441_Update43.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610161404233_newMsg.resx">
-      <DependentUpon>201610161404233_newMsg.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610251543595_newModel.resx">
-      <DependentUpon>201610251543595_newModel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610251612193_newModel3.resx">
-      <DependentUpon>201610251612193_newModel3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610252051510_newModel4.resx">
-      <DependentUpon>201610252051510_newModel4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610252111062_newModel6.resx">
-      <DependentUpon>201610252111062_newModel6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610252120176_newModel8.resx">
-      <DependentUpon>201610252120176_newModel8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610252254587_newMode.resx">
-      <DependentUpon>201610252254587_newMode.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610260127495_newMode1.resx">
-      <DependentUpon>201610260127495_newMode1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610281837335_newMsg1.resx">
-      <DependentUpon>201610281837335_newMsg1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610281858543_newMsg2.resx">
-      <DependentUpon>201610281858543_newMsg2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610281906479_newMsg4.resx">
-      <DependentUpon>201610281906479_newMsg4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611120054445_haha.resx">
-      <DependentUpon>201611120054445_haha.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611120251098_haha2.resx">
-      <DependentUpon>201611120251098_haha2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611121321352_msgApp.resx">
-      <DependentUpon>201611121321352_msgApp.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611121336113_msgAppAS.resx">
-      <DependentUpon>201611121336113_msgAppAS.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201611121618126_avatary.resx">
-      <DependentUpon>201611121618126_avatary.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

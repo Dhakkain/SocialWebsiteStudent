@@ -1,26 +1,38 @@
-﻿@using System.Threading.Tasks
-@using Microsoft.AspNet.Identity
+﻿@using Microsoft.AspNet.Identity
 @using Microsoft.AspNetCore.Mvc.Rendering
 @model List<SocialWebsiteStudent.Models.Post>
 
 @{
-    ViewBag.Title = "Profil użytkownika";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     var x = Request.QueryString["name"];
-}
+    ViewBag.Title = "Profil użytkownika " + x;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-<h1>Profil użytkownika: @x </h1>
+}
+    
+
+<div class="PostBox">
+    @foreach (var h in Model)
+    {
+        if (h.ApplicationUser.UserName == x)
+        {
+            <img src="@Url.Action("UserPhotos", "User", new {name = h.ApplicationUser.UserName})" height="72" width="72" style="float: left; margin-right: 20px"/>
+        }
+    }
+    <h1>@x</h1>
+</div>
+
+<input type="submit" class="btn-lg btn-info" value="Napisz wiadomość" onclick="location.href = '@Url.Action("ShowMessage", "Message", new { username = x})'" />
+
 
 
 @foreach (var post in Model)
 {
     <div class="PostBox">
         <a href=@Url.Action("ProfileSite", "User", new {name = post.ApplicationUser.UserName}, null)>
-            <img src="@Url.Action("UserPhotos", "User", new {id = post.ApplicationUser.Id})" height="42" width="42" style="float: left" />
+            <img src="@Url.Action("UserPhotos", "User", new {name = post.ApplicationUser.UserName})" height="42" width="42" style="float: left"/>
         </a>
 
         <div class="author">
-
             <a href=@Url.Action("ProfileSite", "User", new {name = post.ApplicationUser.UserName}, null)>
                 @Html.DisplayFor(posts => post.ApplicationUser.UserName)
             </a>
@@ -36,33 +48,26 @@
                             <a href="@Url.Action("DeletePost", "Post", new {id = post.ID}, null)">Usuń Post</a>
                         </li>
                     </ul>
-
                 </div>
             }
         </div>
-
         <div class="textbox">@Html.DisplayFor(posts => post.PostContent)</div>
 
         @foreach (var comment in post.Comment)
         {
             <a href=@Url.Action("ProfileSite", "User", new {name = comment.ApplicationUser.UserName}, null)>
-                <img src="@Url.Action("UserPhotos", "User", new {id = post.ApplicationUser.Id})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px" />
+                <img src="@Url.Action("UserPhotos", "User", new {name = comment.ApplicationUser.UserName})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px"/>
             </a>
-
             <div class="comment">
                 <div class="author">
-
                     <a href=@Url.Action("ProfileSite", "User", new {name = comment.ApplicationUser.UserName}, null)>
                         @Html.DisplayFor(model => comment.ApplicationUser.UserName)
                     </a>
                     @Html.DisplayFor(model => comment.CommentDateTime)
                 </div>
 
-                <div class="textbox">
-                    @Html.DisplayFor(model => comment.CommentContent)
-                </div>
+                <div class="textbox">@Html.DisplayFor(model => comment.CommentContent)</div>
             </div>
         }
-
     </div>
 }

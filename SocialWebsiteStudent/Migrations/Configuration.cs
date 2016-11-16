@@ -10,7 +10,6 @@ namespace SocialWebsiteStudent.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            ContextKey = "SocialWebsiteStudent.Models.ApplicationDbContext";
         }
 
         protected override void Seed(SocialWebsiteStudent.Models.ApplicationDbContext context)

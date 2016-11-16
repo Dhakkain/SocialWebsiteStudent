@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers
@@ -11,14 +12,23 @@ namespace SocialWebsiteStudent.Controllers
     {
 
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
-
-
-        // GET: Tag
-        public ActionResult Index()
+        
+        // Show all post from searching tag
+        public ActionResult ShowPostFromTag(string tagName)
         {
-            return View();
+            var postFromTags = (from post in _db.Posts where post.Tags.All(tag=>tag.TagName==tagName)select post);
+
+            if (!postFromTags.Any())
+            {
+                return RedirectToAction("ErroResult", "Search");
+            }
+            
+
+            return View(postFromTags.ToList());
         }
 
+
+        // Autocomplete method 
         public ActionResult GetTag(string term)
         {
             var tags = new List<string>()

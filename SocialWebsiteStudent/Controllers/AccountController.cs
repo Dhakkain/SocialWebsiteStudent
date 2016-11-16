@@ -16,6 +16,7 @@ namespace SocialWebsiteStudent.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -72,9 +73,12 @@ namespace SocialWebsiteStudent.Controllers
                 return View(model);
             }
 
+
+            var user = _db.Users.Single(x => x.Email.Equals(model.Email));
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -150,14 +154,13 @@ namespace SocialWebsiteStudent.Controllers
         {
             if (ModelState.IsValid)
             {
-                string fileName = HttpContext.Server.MapPath(@"~/Content/Image/noImage.png");
+                var fileName = HttpContext.Server.MapPath(@"~/Content/Image/noImage.png");
 
-                byte[] imageData = null;
-                FileInfo fileInfo = new FileInfo(fileName);
-                long imageFileLength = fileInfo.Length;
-                FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                BinaryReader br = new BinaryReader(fs);
-                imageData = br.ReadBytes((int)imageFileLength);
+                var fileInfo = new FileInfo(fileName);
+                var imageFileLength = fileInfo.Length;
+                var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+                var br = new BinaryReader(fs);
+                var imageData = br.ReadBytes((int)imageFileLength);
 
 
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };

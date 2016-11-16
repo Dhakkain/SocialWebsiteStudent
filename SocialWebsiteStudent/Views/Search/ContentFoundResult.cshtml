@@ -1,38 +1,20 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System.Threading.Tasks
 @using Microsoft.AspNet.Identity
+@using Microsoft.AspNetCore.Mvc.Rendering
 @model List<SocialWebsiteStudent.Models.Post>
+
+
 @{
-    ViewBag.Title = "Studencki Mikroblog";
+    ViewBag.Title = "ContentFoundResult";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (User.Identity.IsAuthenticated == true)
-{
-    <div class="box">
-
-        <div style="justify-content: center ; align-items: center;" >
-            <h1>
-                Co słychać?
-            </h1>
-        </div>
-
-        @using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
-        {
-            <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="62" width="62" style="float: left; margin-top: 12px;"/>
-            <textarea rows="3" name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px; min-width: 92%; resize: none; float: right"> </textarea>
-
-            <p class="text-center">
-                <input class="btn-lg btn-primary " type="submit" value="Wyślij" style="margin-top: 16px; padding-left: 80px; padding-right: 80px;"/>
-            </p>
-        }
-    </div>
-}
 
 @foreach (var item in Model)
 {
     <div class="PostBox">
         <a href=@Url.Action("ProfileSite", "User", new {name = item.ApplicationUser.UserName}, null)>
-            <img src="@Url.Action("UserPhotos", "User", new {name = item.ApplicationUser.UserName})" height="42" width="42" style="float: left"/>
+            <img src="@Url.Action("UserPhotos", "User", new {name = item.ApplicationUser.UserName})" height="42" width="42" style="float: left" />
         </a>
 
         <div class="author">
@@ -61,7 +43,7 @@
         @foreach (var item2 in item.Comment)
         {
             <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>
-                <img src="@Url.Action("UserPhotos", "User", new {name = item2.ApplicationUser.UserName})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px"/>
+                <img src="@Url.Action("UserPhotos", "User", new {name = item2.ApplicationUser.UserName})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px" />
             </a>
 
             <div class="comment">
@@ -74,13 +56,13 @@
         }
         @if (User.Identity.IsAuthenticated == true)
         {
-            using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
+            using (Html.BeginForm("PostingComment", "Post"))
             {
                 <p>
                     @Html.Hidden("id", item.ID)
-                    <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="45" width="45" style="float: left; margin-top: 12px; margin-right: 12px;"/>
+                    <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="45" width="45" style="float: left; margin-top: 12px; margin-right: 12px;" />
                     <textarea name="commentContents" placeholder="Skomentuj!" style="margin-top: 12px; min-width: 90%; resize: none"></textarea>
-                    <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px;"/>
+                    <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px;" />
                 </p>
             }
         }
@@ -88,12 +70,4 @@
     </div>
 }
 
-<!-- DODAJ ZAMIANE TAGÓW NA LINKI <a href = coś tam></a>
-<script>
-function myFunction() {
-    var str = document.getElementById("post").innerHTML;
-    var res = str.replaceAll("/#\w+/", "Dziwne");
-    document.getElementById("post").innerHTML = res;
-}
-</script>
-    -->
+

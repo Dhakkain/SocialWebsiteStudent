@@ -2,9 +2,9 @@
 @model List<SocialWebsiteStudent.Models.Message>
 
 @{
-    ViewBag.Title = "ShowMessage";
-    Layout = "~/Views/Shared/_Layout.cshtml";
     var x = Request.QueryString["username"];
+    ViewBag.Title = "Konwersacja z " + x;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -12,7 +12,13 @@
 
     <input type="submit" class="btn-lg btn-info" value="Skrzynka odbiorcza" onclick="location.href = '@Url.Action("Inbox", "Message")'"/>
     <h2>
-        Konwersacja z: <a href=@Url.Action("ProfileSite", "User", new {name = x}, null)>@x</a>
+        Konwersacja z:
+    </h2>
+    <h2>
+        <a href=@Url.Action("ProfileSite", "User", new {name = x}, null)>
+            <img src="@Url.Action("UserPhotos", "User", new {name = x})" height="45" width="45" style="float: left; margin-right: 10px;"/>
+            @x
+        </a>
     </h2>
 
 
@@ -23,27 +29,35 @@
         <textarea rows="5" name="messageContent" placeholder="Napisz nową wiadomość!" style="margin-top: 12px; min-width: 100%; resize: none"></textarea>
         <input class="btn-info btn-lg" type="submit" value="Wyślij" style="margin-top: 12px"/>
     }
-    @foreach (var item in Model.OrderBy(date => date.DateTimeOfMessage.TimeOfDay))
+</div>
+
+<div class="MessageBox">
+    @foreach (var item in Model.OrderByDescending(date => date.DateTimeOfMessage))
     {
-        <div class="author">
-            @if (item.FromUserName == User.Identity.Name)
-            {
+        if (item.FromUserName == User.Identity.Name)
+        {
+            <img src="@Url.Action("UserPhotos", "User", new {name = item.FromUserName})" height="32" width="32" style="float: left;"/>
+            <div class="author">
+
                 <a href=@Url.Action("ProfileSite", "User", new {name = item.FromUserName}, null)>
                     Ty
                 </a>
                 @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
-            }
-            else
-            {
+            </div>
+        }
+        else
+        {
+            <img src="@Url.Action("UserPhotos", "User", new {name = item.FromUserName})" height="32" width="32" style="float: left;"/>
+            <div class="author">
+
                 <a href=@Url.Action("ProfileSite", "User", new {name = item.FromUserName}, null)>
                     @Html.DisplayFor(modelItem => item.FromUserName)
                 </a>
                 @Html.DisplayFor(modelItem => item.DateTimeOfMessage)
-            }
-        </div>
+            </div>
+        }
         <p>
-            <span style="white-space: pre-line">@Html.DisplayFor(modelItem => item.MessageContent)
-                </span>
+            <div class="textbox">@Html.DisplayFor(modelItem => item.MessageContent)</div>
         </p>
     }
 </div>

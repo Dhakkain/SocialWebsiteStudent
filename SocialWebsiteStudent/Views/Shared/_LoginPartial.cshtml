@@ -8,7 +8,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" style="padding-top: 10px; padding-bottom: 10px;">
-                    <img src="@Url.Action("UserPhotos", "User", new {id = User.Identity.GetUserId()})" height="32" width="32" style="margin-right: 10px;"/>
+                    <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="32" width="32" style="margin-right: 10px;"/>
                     @User.Identity.Name
                     <span class="caret"></span>
                 </a>

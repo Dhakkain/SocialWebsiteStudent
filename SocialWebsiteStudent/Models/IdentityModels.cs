@@ -34,7 +34,6 @@ namespace SocialWebsiteStudent.Models
         public DbSet<Message> Messages { get; set; }
         public DbSet<Notification> Notifications { get; set; }
         public DbSet<Tag> Tags{ get; set; }
-        public DbSet<TagPost> TagPosts { get; set; }
 
 
         public static ApplicationDbContext Create()
