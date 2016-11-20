@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Data;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using SocialWebsiteStudent.Models;
 
@@ -63,18 +61,8 @@ namespace SocialWebsiteStudent.Controllers
                                  orderby message.DateTimeOfMessage descending 
                                  select message).ToList();
 
-
             return View(selectMessage);
         }
-
-        [Authorize]
-        [HttpGet]
-        public ActionResult CreateNewMessage()
-        {
-
-            return View("CreateMessage");
-        }
-
 
         [Authorize]
         [HttpPost]
@@ -94,7 +82,7 @@ namespace SocialWebsiteStudent.Controllers
             //Save changes in database 
             _db.SaveChanges();
 
-            return View("CreateMessage");
+            return RedirectToAction("ShowMessage",  new {username = toUser});
         }
 
 

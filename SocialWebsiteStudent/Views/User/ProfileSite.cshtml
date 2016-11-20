@@ -11,13 +11,8 @@
     
 
 <div class="PostBox">
-    @foreach (var h in Model)
-    {
-        if (h.ApplicationUser.UserName == x)
-        {
-            <img src="@Url.Action("UserPhotos", "User", new {name = h.ApplicationUser.UserName})" height="72" width="72" style="float: left; margin-right: 20px"/>
-        }
-    }
+    
+    <img src="@Url.Action("UserPhotos", "User", new {name = x})" height="72" width="72" style="float: left; margin-right: 20px" />
     <h1>@x</h1>
 </div>
 

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Microsoft.Ajax.Utilities;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers
@@ -16,7 +13,7 @@ namespace SocialWebsiteStudent.Controllers
         // Show all post from searching tag
         public ActionResult ShowPostFromTag(string tagName)
         {
-            var postFromTags = (from post in _db.Posts where post.Tags.All(tag=>tag.TagName==tagName)select post);
+            var postFromTags = (from post in _db.Posts where post.Tags.Any(tag=>tag.TagName==tagName) orderby post.PostDateTime select post);
 
             if (!postFromTags.Any())
             {

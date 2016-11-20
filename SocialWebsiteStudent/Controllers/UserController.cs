@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.Migrations;
+﻿using System.Data.Entity.Migrations;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Script.Services;
-using System.Web.Services;
-using Microsoft.AspNet.Identity;
 using SocialWebsiteStudent.Models;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -77,12 +72,11 @@ namespace SocialWebsiteStudent.Controllers
             {
                 string fileName = HttpContext.Server.MapPath(@"~/Content/Image/noImage.png");
 
-                byte[] imageData = null;
                 FileInfo fileInfo = new FileInfo(fileName);
                 long imageFileLength = fileInfo.Length;
                 FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 BinaryReader br = new BinaryReader(fs);
-                imageData = br.ReadBytes((int) imageFileLength);
+                var imageData = br.ReadBytes((int) imageFileLength);
 
                 return File(imageData, "image/png");
             }
