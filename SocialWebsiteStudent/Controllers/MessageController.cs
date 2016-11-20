@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using SocialWebsiteStudent.Models;
 
@@ -16,9 +19,9 @@ namespace SocialWebsiteStudent.Controllers
         {
             //Select all conversation for User who is log in
             var inboxMessage = (from message in _db.Messages
-                                where message.ToUserName == User.Identity.Name || message.FromUserName == User.Identity.Name
-                                orderby message.DateTimeOfMessage descending
-                                select message);
+                where message.ToUserName == User.Identity.Name || message.FromUserName == User.Identity.Name
+                orderby message.DateTimeOfMessage descending
+                select message);
 
             return View(inboxMessage.ToList());
         }
@@ -27,7 +30,6 @@ namespace SocialWebsiteStudent.Controllers
         [HttpPost]
         public ActionResult ShowMessage(string toUser, string messageContent)
         {
-
             //Create new object of Message 
             var newMessage = new Message
             {
@@ -42,7 +44,21 @@ namespace SocialWebsiteStudent.Controllers
             //Save changes in database 
             _db.SaveChanges();
 
-            return RedirectToAction("ShowMessage","Message", new {username = toUser});
+
+            var newMessageNotification = new Notification
+            {
+                NotificationTitle = "Nowa wiadomość!",
+                NotificationContent = "Nowa wiadomość od: " + User.Identity.Name,
+                NotificationDateTime = DateTime.Now,
+                Message = _db.Messages.FirstOrDefault(x => x.Id == newMessage.Id),
+                ApplicationUser = _db.Users.FirstOrDefault(user => user.UserName == toUser)
+            };
+
+            _db.Notifications.Add(newMessageNotification);
+            //Save changes in database 
+            _db.SaveChanges();
+
+            return RedirectToAction("ShowMessage", "Message", new {username = toUser});
         }
 
         [Authorize]
@@ -56,18 +72,32 @@ namespace SocialWebsiteStudent.Controllers
 
             //Select all message from conversation by two user
             var selectMessage = (from message in _db.Messages
-                                 where (message.FromUserName == username && message.ToUserName == currentUser.UserName)
-                                 ||(message.FromUserName == currentUser.UserName && message.ToUserName == username) 
-                                 orderby message.DateTimeOfMessage descending 
-                                 select message).ToList();
+                where (message.FromUserName == username && message.ToUserName == currentUser.UserName)
+                      || (message.FromUserName == currentUser.UserName && message.ToUserName == username)
+                orderby message.DateTimeOfMessage descending
+                select message).ToList();
 
             return View(selectMessage);
         }
+
+
+        [Authorize]
+        public ActionResult CreateNewMessage()
+        {
+            return View();
+        }
+
 
         [Authorize]
         [HttpPost]
         public ActionResult CreateNewMessage(string toUser, string messageContent)
         {
+            // User can't write a message to yourself
+            if (toUser == User.Identity.Name)
+            {
+                return RedirectToAction("CreateNewMessage", "Message");
+            }
+
             //Create new object of Message 
             var newMessage = new Message
             {
@@ -82,7 +112,21 @@ namespace SocialWebsiteStudent.Controllers
             //Save changes in database 
             _db.SaveChanges();
 
-            return RedirectToAction("ShowMessage",  new {username = toUser});
+            var newMessageNotification = new Notification
+            {
+                NotificationTitle = "Nowa wiadomość!",
+                NotificationContent = "Nowa wiadomość od: " + User.Identity.Name,
+                NotificationDateTime = DateTime.Now,
+                Message = _db.Messages.FirstOrDefault(x => x.Id == newMessage.Id),
+                ApplicationUser = _db.Users.FirstOrDefault(user => user.UserName == toUser)
+            };
+
+            _db.Notifications.Add(newMessageNotification);
+
+            //Save changes in database 
+            _db.SaveChanges();
+
+            return RedirectToAction("ShowMessage", new {username = toUser});
         }
 
 

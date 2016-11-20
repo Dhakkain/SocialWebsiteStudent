@@ -28,7 +28,9 @@
                     @Html.TextBox("value")
                 </form>
             </li>
-            <li>@Html.ActionLink("Prywatne wiadomości", "Inbox", "Message")</li>
+            <li>@Html.ActionLink("Powiadomienia", "Notification", "Notification")</li>
+
+            <li>@Html.ActionLink("Wiadomości", "Inbox", "Message")</li>
 
         </ul>
         @Html.Partial("_LoginPartial")

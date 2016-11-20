@@ -24,10 +24,10 @@
                 Ostatnia wiadomość:
             </th>
         </tr>
-        @foreach (var item in Model.DistinctBy(x => x.FromUserName))
+        @foreach (var item in Model.DistinctBy(x => x.FromUserName ))
         {
             <tr>
-                @if (item.FromUserName == User.Identity.Name)
+                @if (item.FromUserName == User.Identity.Name && item.FromUserName != item.ToUserName)
                 {
                 <tr>
                     <td>

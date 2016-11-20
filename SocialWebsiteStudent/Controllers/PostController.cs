@@ -23,37 +23,8 @@ namespace SocialWebsiteStudent.Controllers
             return View(postFromDatabase);
         }
 
-        //Only register user can post new comment
-        //POST
-        [Authorize]
-        [HttpPost]
-        public ActionResult PostingComment(int id, string commentContents)
-        {
-            //Get ID of user 
-            var currentUserId = User.Identity.GetUserId();
-            //Get object of Current login user
-            var currentUser = _db.Users.FirstOrDefault(user => user.Id == currentUserId);
-
-            //Create new object of Post - new Post
-            var newComment = new Comment
-            {
-                CommentContent = commentContents,
-                CommentDateTime = DateTime.Now,
-                ApplicationUser = currentUser,
-                PostId = id
-            };
-
-            //Add new Post to database
-            _db.Comments.Add(newComment);
-            //Save changes in database 
-            _db.SaveChanges();
-            return RedirectToAction("WallPost");
-        }
-
         //Only register user can post new topic
-        //POST
         [Authorize]
-        [HttpPost]
         public ActionResult PostingPost(string postContents)
         {
             //Get ID of user 
@@ -101,10 +72,57 @@ namespace SocialWebsiteStudent.Controllers
             return RedirectToAction("WallPost");
         }
 
+        //Only register user can post new comment
+        //POST
+        [Authorize]
+        public ActionResult PostingComment(int id, string commentContents, string userName)
+        {
+            //Get ID of user 
+            var currentUserId = User.Identity.GetUserId();
+            //Get object of Current login user
+            var currentUser = _db.Users.FirstOrDefault(user => user.Id == currentUserId);
+
+            //Create new object of Post - new Post
+            var newComment = new Comment
+            {
+                CommentContent = commentContents,
+                CommentDateTime = DateTime.Now,
+                ApplicationUser = currentUser,
+                PostId = id,
+            };
+
+            //Add new Post to database
+            _db.Comments.Add(newComment);
+            //Save changes in database 
+            _db.SaveChanges();
+
+            var newCommentNotification = new Notification
+            {
+                NotificationTitle = "Skomentowany wpis!",
+                NotificationContent = "Twój wpis skomentował użytkownik:" + User.Identity.Name,
+                NotificationDateTime = DateTime.Now,
+                Post = _db.Posts.FirstOrDefault(x => x.ID == id),
+                ApplicationUser = _db.Users.FirstOrDefault(user => user.UserName == userName)
+            };
+
+            //Add new Notification to database
+            _db.Notifications.Add(newCommentNotification);
+            //Save changes in database 
+            _db.SaveChanges();
+
+            return RedirectToAction("WallPost");
+        }
+
+     
         public ActionResult DeletePost(int id)
         {
             //Find post in database
             var deletePost = _db.Posts.Find(id);
+
+            var deleteNotification = from n in _db.Notifications where n.Post.ID == id select n;
+            //Remove notifications from db
+            _db.Notifications.RemoveRange(deleteNotification);
+
             //Remove post and his comments from db
             _db.Posts.Remove(deletePost);
             //Save

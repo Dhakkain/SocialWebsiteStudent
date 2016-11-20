@@ -7,19 +7,22 @@ namespace SocialWebsiteStudent.Controllers
 {
     public class TagController : Controller
     {
-
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
-        
+
         // Show all post from searching tag
         public ActionResult ShowPostFromTag(string tagName)
         {
-            var postFromTags = (from post in _db.Posts where post.Tags.Any(tag=>tag.TagName==tagName) orderby post.PostDateTime select post);
+            var postFromTags = (from post in _db.Posts
+                where
+                post.Tags.Any(tag => tag.TagName == tagName)
+                orderby post.PostDateTime
+                select post);
 
             if (!postFromTags.Any())
             {
                 return RedirectToAction("ErroResult", "Search");
             }
-            
+
 
             return View(postFromTags.ToList());
         }
@@ -42,8 +45,7 @@ namespace SocialWebsiteStudent.Controllers
             else
                 data = tags;
 
-            return Json(data, JsonRequestBehavior.AllowGet); 
+            return Json(data, JsonRequestBehavior.AllowGet);
         }
-
     }
 }

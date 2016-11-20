@@ -12,25 +12,22 @@ namespace SocialWebsiteStudent.Controllers
     {
         private readonly ApplicationDbContext _db = new ApplicationDbContext();
 
-        [HttpGet]
         public ActionResult ProfileSite(string name)
         {
             var profileView = (from post in _db.Posts
-                where post.ApplicationUser.UserName == name 
+                where post.ApplicationUser.UserName == name
+                orderby post.PostDateTime
                 select post);
 
             return View(profileView.ToList());
         }
 
-      
 
-        [HttpGet]
         public ActionResult ProfileOptions()
         {
             return View();
         }
 
-        [HttpPost]
         public ActionResult ProfileAvatar(HttpPostedFileBase UserPhoto)
         {
             byte[] imageData = null;
@@ -54,15 +51,14 @@ namespace SocialWebsiteStudent.Controllers
         }
 
 
-        [HttpPost]
         public JsonResult GetUser(string term)
         {
             var result = (from user in _db.Users
-                          where user.UserName.StartsWith(term)
-                          select new
-                          {
-                              startfrom = user.UserName
-                          }).Distinct();
+                where user.UserName.StartsWith(term)
+                select new
+                {
+                    startfrom = user.UserName
+                }).Distinct();
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 

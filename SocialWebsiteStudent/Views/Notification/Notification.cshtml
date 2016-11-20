@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SocialWebsiteStudent.Models.Notification>
+
+@{
+    ViewBag.Title = "Powiadomienia";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="PostBox">
+    <h1>Powiadomienia</h1>
+
+    <h2>Wiadomości:</h2>
+
+    @foreach (var item in Model)
+    {
+        if (item.Post == null)
+        {
+            if (item.Open == false)
+            {
+                <a href="@Url.Action("ShowNotificationMessage", "Notification", new { id = item.Message.Id })">
+                    <h3>@Html.DisplayFor(modelItem => item.NotificationTitle)</h3>
+                </a>
+
+                <h4>@Html.DisplayFor(modelItem => item.NotificationDateTime) </h4>
+                <h5>@Html.DisplayFor(modelItem => item.NotificationContent) </h5>
+            }
+            else
+            {
+                <h3>Nie masz nowych powiadomień</h3>
+            }
+        }
+    }
+
+    <h2>Wpisy:</h2>
+    @foreach (var item in Model)
+    {
+        if (item.Message == null)
+        {
+            if (item.Open == false)
+            {
+             
+                <a href=@Url.Action("ShowPost", "Notification", new {id = item.Post.ID})>
+                    <h3>@Html.DisplayFor(modelItem => item.NotificationTitle)</h3>
+                </a>
+
+                <h4>@Html.DisplayFor(modelItem => item.NotificationDateTime) </h4>
+                <h5>@Html.DisplayFor(modelItem => item.NotificationContent) </h5>
+            }
+            else
+            {
+                <h3>Nie masz nowych powiadomień</h3>
+            }
+        }
+    }
+
+
+</div>

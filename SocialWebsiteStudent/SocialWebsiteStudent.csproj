@@ -428,6 +428,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\NotificationController.cs" />
     <Compile Include="Controllers\PostController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\TagController.cs" />
@@ -550,7 +551,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Post\WallPost.cshtml" />
     <Content Include="Views\Message\Inbox.cshtml" />
-    <None Include="Views\Message\CreateMessage.cshtml" />
+    <None Include="Views\Message\CreateNewMessage.cshtml" />
     <Content Include="Views\Message\ShowMessage.cshtml" />
     <Content Include="Views\Search\ErrorResult.cshtml" />
     <Content Include="Views\User\ProfileSite.cshtml" />
@@ -558,6 +559,8 @@
     <Content Include="Views\Search\TagFoundResult.cshtml" />
     <Content Include="Views\Tag\ShowPostFromTag.cshtml" />
     <Content Include="Views\Search\ContentFoundResult.cshtml" />
+    <Content Include="Views\Notification\Notification.cshtml" />
+    <Content Include="Views\Notification\ShowPost.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

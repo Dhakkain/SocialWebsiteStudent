@@ -36,8 +36,9 @@ namespace SocialWebsiteStudent.Controllers
         public ActionResult ContentFoundResult(string foundContent)
         {
             var found = (from f in _db.Posts
-                join hehehe in _db.Comments on f.ID equals hehehe.PostId
-                where f.PostContent.Contains(foundContent)
+                where
+                f.PostContent.Contains(foundContent) || f.Comment.Any(x => x.CommentContent.Contains(foundContent))
+                orderby f.PostDateTime
                 select f);
             return View(found.ToList());
         }
@@ -47,6 +48,5 @@ namespace SocialWebsiteStudent.Controllers
         {
             return View();
         }
-
     }
 }
