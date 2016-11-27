@@ -114,21 +114,6 @@ namespace SocialWebsiteStudent.Controllers
         }
 
      
-        public ActionResult DeletePost(int id)
-        {
-            //Find post in database
-            var deletePost = _db.Posts.Find(id);
-
-            var deleteNotification = from n in _db.Notifications where n.Post.ID == id select n;
-            //Remove notifications from db
-            _db.Notifications.RemoveRange(deleteNotification);
-
-            //Remove post and his comments from db
-            _db.Posts.Remove(deletePost);
-            //Save
-            _db.SaveChanges();
-
-            return RedirectToAction("WallPost");
-        }
+    
     }
 }

@@ -19,7 +19,7 @@ namespace SocialWebsiteStudent.Controllers
         {
             //Select all conversation for User who is log in
             var inboxMessage = (from message in _db.Messages
-                where message.ToUserName == User.Identity.Name || message.FromUserName == User.Identity.Name
+                where message.ToUserName == User.Identity.Name
                 orderby message.DateTimeOfMessage descending
                 select message);
 

@@ -65,6 +65,8 @@ namespace SocialWebsiteStudent.Models
 
     public class RegisterViewModel
     {
+        [Display(Name = "UserRoles")]
+        public string UserRoles { get; set; }
         [Required]
         [Display(Name = "Nazwa użytkownika")]
         public string UserName { get; set; }

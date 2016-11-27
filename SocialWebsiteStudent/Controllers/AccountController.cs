@@ -69,7 +69,7 @@ namespace SocialWebsiteStudent.Controllers
             var result =
                 await
                     SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe,
-                        shouldLockout: false);
+                        shouldLockout: true);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -155,7 +155,6 @@ namespace SocialWebsiteStudent.Controllers
                 var fs = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 var br = new BinaryReader(fs);
                 var imageData = br.ReadBytes((int) imageFileLength);
-
 
                 var user = new ApplicationUser {UserName = model.UserName, Email = model.Email};
                 user.UserPhoto = imageData;

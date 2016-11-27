@@ -5,7 +5,7 @@
 
 @{
     var x = Request.QueryString["tagName"];
-    ViewBag.Title = "ShowPostFromTag";
+    ViewBag.Title = "Znaleziono Tag!";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,14 +26,15 @@
 
             @Html.DisplayFor(modelItem => item.PostDateTime)
 
-            @if (item.ApplicationUser.Id == User.Identity.GetUserId())
+            @if (User.IsInRole("Admin"))
             {
                 <div class="btn-group" style="float: right;">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-</button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="@Url.Action("DeletePost", "Post", new {id = item.ID}, null)">Usuń Post</a>
+                            <a href="@Url.Action("DeletePost", "Admin", new {id = item.ID}, null)">Usuń Post</a>
                         </li>
+
                     </ul>
 
                 </div>
@@ -52,6 +53,19 @@
                 <div class="author">
                     <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>@Html.DisplayFor(modelItem => item2.ApplicationUser.UserName)</a>
                     @Html.DisplayFor(item2Model => item2.CommentDateTime)
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="btn-group" style="float: right;">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-</button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@Url.Action("DeleteComment", "Admin", new {id = item2.ID}, null)">Usuń Komentarz</a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    }
                 </div>
                 <div class="textbox">@Html.DisplayFor(item2Model => item2.CommentContent)</div>
             </div>
@@ -62,6 +76,7 @@
             {
                 <p>
                     @Html.Hidden("id", item.ID)
+                    @Html.Hidden("userName", item.ApplicationUser.UserName)
                     <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="45" width="45" style="float: left; margin-top: 12px; margin-right: 12px;" />
                     <textarea name="commentContents" placeholder="Skomentuj!" style="margin-top: 12px; min-width: 90%; resize: none"></textarea>
                     <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px;" />

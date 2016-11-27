@@ -24,6 +24,7 @@ namespace SocialWebsiteStudent.Controllers
             }
             if (!value.Contains("#") || !value.Contains("@"))
             {
+
                 return RedirectToAction("ContentFoundResult", new {foundContent = value});
             }
 
@@ -40,6 +41,7 @@ namespace SocialWebsiteStudent.Controllers
                 f.PostContent.Contains(foundContent) || f.Comment.Any(x => x.CommentContent.Contains(foundContent))
                 orderby f.PostDateTime
                 select f);
+
             return View(found.ToList());
         }
 

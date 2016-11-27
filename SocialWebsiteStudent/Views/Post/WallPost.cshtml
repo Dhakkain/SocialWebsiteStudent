@@ -2,7 +2,7 @@
 @using Microsoft.AspNet.Identity
 @model List<SocialWebsiteStudent.Models.Post>
 @{
-    ViewBag.Title = "Studencki Mikroblog";
+    ViewBag.Title = "Student Wall";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,13 +10,13 @@
 {
     <div class="box">
 
-        <div style="justify-content: center ; align-items: center;" >
-            <h1>
-                Co słychać?
-            </h1>
+        <div style="justify-content: center; align-items: center;">
+            <h2 class="text-center">
+                Udostępnij nowy wpis!
+            </h2>
         </div>
 
-        @using (Html.BeginForm("PostingPost", "Post", FormMethod.Post))
+        @using (Html.BeginForm("PostingPost", "Post"))
         {
             <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="62" width="62" style="float: left; margin-top: 12px;"/>
             <textarea rows="3" name="PostContents" placeholder="Udostępnij nowy wpis!" style="margin-top: 12px; min-width: 92%; resize: none; float: right"> </textarea>
@@ -42,14 +42,15 @@
 
             @Html.DisplayFor(modelItem => item.PostDateTime)
 
-            @if (item.ApplicationUser.Id == User.Identity.GetUserId())
+            @if (User.IsInRole("Admin"))
             {
                 <div class="btn-group" style="float: right;">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"></button>
+                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-</button>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="@Url.Action("DeletePost", "Post", new {id = item.ID}, null)">Usuń Post</a>
+                            <a href="@Url.Action("DeletePost", "Admin", new {id = item.ID}, null)">Usuń Post</a>
                         </li>
+
                     </ul>
 
                 </div>
@@ -68,13 +69,26 @@
                 <div class="author">
                     <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>@Html.DisplayFor(modelItem => item2.ApplicationUser.UserName)</a>
                     @Html.DisplayFor(item2Model => item2.CommentDateTime)
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div class="btn-group" style="float: right;">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">-</button>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="@Url.Action("DeleteComment", "Admin", new {id = item2.ID}, null)">Usuń Komentarz</a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    }
                 </div>
                 <div class="textbox">@Html.DisplayFor(item2Model => item2.CommentContent)</div>
             </div>
         }
         @if (User.Identity.IsAuthenticated == true)
         {
-            using (Html.BeginForm("PostingComment", "Post", FormMethod.Post))
+            using (Html.BeginForm("PostingComment", "Post"))
             {
                 <p>
                     @Html.Hidden("id", item.ID)
@@ -89,7 +103,7 @@
     </div>
 }
 
-<!-- DODAJ ZAMIANE TAGÓW NA LINKI <a href = coś tam></a>
+<!-- DODAJ ZAMIANE TAGÓW NA LINKI <a href=coś tam></a>
 <script>
 function myFunction() {
     var str = document.getElementById("post").innerHTML;
@@ -97,4 +111,4 @@ function myFunction() {
     document.getElementById("post").innerHTML = res;
 }
 </script>
-    -->
+-->

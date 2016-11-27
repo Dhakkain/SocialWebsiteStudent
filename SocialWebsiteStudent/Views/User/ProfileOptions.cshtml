@@ -13,6 +13,7 @@
     <h3> Zmiana hasła: </h3>
     @using (Html.BeginForm("ChangePassword", "Manage", "Manage"))
     {
+       @Html.AntiForgeryToken()
         <input type="submit" class="btn-primary " value="Zmien hasło" style="margin-top: 12px" />
 
     }
