@@ -30,6 +30,12 @@ namespace SocialWebsiteStudent.Controllers
         [HttpPost]
         public ActionResult ShowMessage(string toUser, string messageContent)
         {
+
+            if (messageContent.IsNullOrWhiteSpace())
+            {
+                return RedirectToAction("ShowMessage");
+            }
+
             //Create new object of Message 
             var newMessage = new Message
             {
@@ -92,6 +98,11 @@ namespace SocialWebsiteStudent.Controllers
         [HttpPost]
         public ActionResult CreateNewMessage(string toUser, string messageContent)
         {
+
+            if (messageContent.IsNullOrWhiteSpace())
+            {
+                return RedirectToAction("CreateNewMessage");
+            }
             // User can't write a message to yourself
             if (toUser == User.Identity.Name)
             {

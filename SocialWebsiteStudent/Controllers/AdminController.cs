@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -67,13 +68,16 @@ namespace SocialWebsiteStudent.Controllers
             return RedirectToAction("ProfileSite", "User", new { name = username });
         }
         [Authorize]
-        public ActionResult UnblockUser(string id)
+        public async Task<ActionResult> UnblockUser(string username)
         {
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_db));
 
-            var bannedUser = UserManager.FindById(id);
-            UserManager.RemoveFromRole(bannedUser.Id, "BannedUser");
-            return View();
+            var bannedUser = UserManager.FindByName(username);
+
+            await UserManager.RemoveFromRolesAsync(bannedUser.Id, "UserBanned");
+            await UserManager.UpdateAsync(bannedUser);
+
+            return RedirectToAction("ProfileSite", "User", new { name = username });
         }
 
         [Authorize]

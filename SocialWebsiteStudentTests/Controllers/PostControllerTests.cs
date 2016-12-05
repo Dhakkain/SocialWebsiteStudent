@@ -2,10 +2,12 @@
 using SocialWebsiteStudent.Controllers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Data.Entity;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Moq;
+using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers.Tests
 {
@@ -15,34 +17,39 @@ namespace SocialWebsiteStudent.Controllers.Tests
         [TestMethod()]
         public void PostingCommentTest()
         {
-            Assert.Fail();
+           
         }
 
         [TestMethod()]
         public void WallPostTest()
         {
+            var mockset = new Mock<DbSet<Post>>();
+            var mockContext = new Mock<ApplicationDbContext>();
 
-            PostController controller = new PostController();
-            ViewResult result = controller.WallPost() as ViewResult;
-            Assert.Equals("WallPost", result.ViewName);
+            mockContext.Setup(m => m.Posts).Returns(mockset.Object);
+
         }
 
         [TestMethod()]
         public void PostingPostTest()
         {
-            Assert.Fail();
+            var mockset = new Mock<DbSet<Post>>();
+            var mockContext = new Mock<ApplicationDbContext>();
+
+            mockContext.Setup(m => m.Posts).Returns(mockset.Object);
+
         }
 
-        [TestMethod()]
-        public void PostingCommentTest1()
-        {
-            Assert.Fail();
-        }
+   
 
         [TestMethod()]
         public void DeletePostTest()
         {
-            Assert.Fail();
+            var mockset = new Mock<DbSet<Post>>();
+            var mockContext = new Mock<ApplicationDbContext>();
+
+            mockContext.Setup(m => m.Posts).Returns(mockset.Object);
+
         }
     }
 }

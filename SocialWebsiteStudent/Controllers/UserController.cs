@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Kendo.Mvc.Extensions;
+using Microsoft.Ajax.Utilities;
 using SocialWebsiteStudent.Models;
 using Microsoft.AspNet.Identity.Owin;
 
@@ -18,8 +20,25 @@ namespace SocialWebsiteStudent.Controllers
                 where post.ApplicationUser.UserName == name
                 orderby post.PostDateTime
                 select post);
-
+            if (!profileView.Any())
+            {
+                return RedirectToAction("ProfileSiteEmptyPost", new {name = name});
+            }
+          
             return View(profileView.ToList());
+        }
+
+        public ActionResult ProfileSiteEmptyPost(string name)
+        {
+            var profile = from p in _db.Users where p.UserName == name select p;
+
+            if (!profile.Any())
+            {
+                return RedirectToAction("ErroResult", "Search");
+
+            }
+
+            return View(profile);
         }
 
 

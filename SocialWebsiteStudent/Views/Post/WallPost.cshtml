@@ -6,7 +6,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@if (User.Identity.IsAuthenticated == true)
+@if (User.Identity.IsAuthenticated == true && User.IsInRole("UserBanned") == false)
 {
     <div class="box">
 
@@ -86,7 +86,7 @@
                 <div class="textbox">@Html.DisplayFor(item2Model => item2.CommentContent)</div>
             </div>
         }
-        @if (User.Identity.IsAuthenticated == true)
+        @if (User.Identity.IsAuthenticated == true && User.IsInRole("UserBanned") == false)
         {
             using (Html.BeginForm("PostingComment", "Post"))
             {
@@ -102,13 +102,3 @@
 
     </div>
 }
-
-<!-- DODAJ ZAMIANE TAGÓW NA LINKI <a href=coś tam></a>
-<script>
-function myFunction() {
-    var str = document.getElementById("post").innerHTML;
-    var res = str.replaceAll("/#\w+/", "Dziwne");
-    document.getElementById("post").innerHTML = res;
-}
-</script>
--->

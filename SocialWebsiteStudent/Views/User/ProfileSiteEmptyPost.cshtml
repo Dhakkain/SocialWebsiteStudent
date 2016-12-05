@@ -1,0 +1,26 @@
+﻿@model IEnumerable<SocialWebsiteStudent.Models.ApplicationUser>
+
+@{
+    var x = Request.QueryString["name"];
+    ViewBag.Title = "ProfileSiteEmptyPost";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="PostBox">
+
+    <img src="@Url.Action("UserPhotos", "User", new {name = x})" height="72" width="72" style="float: left; margin-right: 20px" />
+    <h1>@x</h1>
+    
+    <h4>Użytkownik nie udostępnił jeszcze żadnych treści.</h4>
+
+</div>
+
+<input type="submit" class="btn-lg btn-info" value="Napisz wiadomość" onclick="location.href = '@Url.Action("ShowMessage", "Message", new {username = x})'" />
+@if (User.IsInRole("Admin"))
+{
+    <input type="submit" class="btn-lg btn-info" value="Zablokuj użytkownika" onclick="location.href = '@Url.Action("BlockUserName", "Admin", new {username = x})'" />
+    <input type="submit" class="btn-lg btn-info" value="Nadaj prawa Admina" onclick="location.href = '@Url.Action("TakeAdminClaim", "Admin", new {username = x})'" />
+    <input type="submit" class="btn-lg btn-info" value="Odblokuj konto" onclick="location.href = '@Url.Action("UnblockUser", "Admin", new {username = x})'" />
+}

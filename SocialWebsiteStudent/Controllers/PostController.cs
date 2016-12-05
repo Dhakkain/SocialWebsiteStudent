@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using SocialWebsiteStudent.Models;
 
@@ -27,6 +28,8 @@ namespace SocialWebsiteStudent.Controllers
         [Authorize]
         public ActionResult PostingPost(string postContents)
         {
+            if (postContents.IsNullOrWhiteSpace()) return RedirectToAction("WallPost");
+
             //Get ID of user 
             var currentUserId = User.Identity.GetUserId();
             //Get object of Current login user
@@ -77,6 +80,8 @@ namespace SocialWebsiteStudent.Controllers
         [Authorize]
         public ActionResult PostingComment(int id, string commentContents, string userName)
         {
+            if (commentContents.IsNullOrWhiteSpace()) return RedirectToAction("WallPost");
+
             //Get ID of user 
             var currentUserId = User.Identity.GetUserId();
             //Get object of Current login user

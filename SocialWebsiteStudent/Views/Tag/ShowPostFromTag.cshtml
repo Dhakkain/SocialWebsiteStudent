@@ -70,7 +70,7 @@
                 <div class="textbox">@Html.DisplayFor(item2Model => item2.CommentContent)</div>
             </div>
         }
-        @if (User.Identity.IsAuthenticated == true)
+        @if (User.Identity.IsAuthenticated == true && User.IsInRole("UserBanned")==false)
         {
             using (Html.BeginForm("PostingComment", "Post"))
             {

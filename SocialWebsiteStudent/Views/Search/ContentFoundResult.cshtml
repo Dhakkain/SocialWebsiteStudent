@@ -14,12 +14,11 @@
 
 @if (Model.Count != 0)
 {
-
     foreach (var item in Model)
     {
         <div class="PostBox">
             <a href=@Url.Action("ProfileSite", "User", new {name = item.ApplicationUser.UserName}, null)>
-                <img src="@Url.Action("UserPhotos", "User", new {name = item.ApplicationUser.UserName})" height="42" width="42" style="float: left" />
+                <img src="@Url.Action("UserPhotos", "User", new {name = item.ApplicationUser.UserName})" height="42" width="42" style="float: left"/>
             </a>
 
             <div class="author">
@@ -49,7 +48,7 @@
             @foreach (var item2 in item.Comment)
             {
                 <a href=@Url.Action("ProfileSite", "User", new {name = item2.ApplicationUser.UserName}, null)>
-                    <img src="@Url.Action("UserPhotos", "User", new {name = item2.ApplicationUser.UserName})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px" />
+                    <img src="@Url.Action("UserPhotos", "User", new {name = item2.ApplicationUser.UserName})" height="32" width="32" style="float: left; margin-top: 20px; margin-left: 55px"/>
                 </a>
 
                 <div class="comment">
@@ -73,26 +72,24 @@
                     <div class="textbox">@Html.DisplayFor(item2Model => item2.CommentContent)</div>
                 </div>
             }
-            @if (User.Identity.IsAuthenticated == true)
+            @if (User.Identity.IsAuthenticated == true && User.IsInRole("UserBanned") == false)
             {
                 using (Html.BeginForm("PostingComment", "Post"))
                 {
                     <p>
                         @Html.Hidden("id", item.ID)
                         @Html.Hidden("userName", item.ApplicationUser.UserName)
-                        <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="45" width="45" style="float: left; margin-top: 12px; margin-right: 12px;" />
+                        <img src="@Url.Action("UserPhotos", "User", new {name = User.Identity.Name})" height="45" width="45" style="float: left; margin-top: 12px; margin-right: 12px;"/>
                         <textarea name="commentContents" placeholder="Skomentuj!" style="margin-top: 12px; min-width: 90%; resize: none"></textarea>
-                        <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px;" />
+                        <input type="submit" class="btn-primary " value="Skomentuj" style="margin-top: 12px;"/>
                     </p>
                 }
             }
 
         </div>
     }
-
 }
 else
 {
     @Html.Partial("ErroResult")
-
 }
