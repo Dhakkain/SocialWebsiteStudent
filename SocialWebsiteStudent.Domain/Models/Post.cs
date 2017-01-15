@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using SocialWebsiteStudent.Domain.DatabaseContext;
 
-namespace SocialWebsiteStudent.Models
+namespace SocialWebsiteStudent.Domain.Models
 {
     public class Post
     {

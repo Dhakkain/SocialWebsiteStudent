@@ -7,6 +7,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using SocialWebsiteStudent.Domain.DatabaseContext;
+using SocialWebsiteStudent.Domain.Models;
+using SocialWebsiteStudent.Domain.Models.Views;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers

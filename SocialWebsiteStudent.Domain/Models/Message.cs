@@ -1,7 +1,6 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace SocialWebsiteStudent.Models
+namespace SocialWebsiteStudent.Domain.Models
 {
     public class Message
     {

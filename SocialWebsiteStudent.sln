@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialWebsiteStudent", "SocialWebsiteStudent\SocialWebsiteStudent.csproj", "{6CAE8783-3AB0-4258-A18F-BED9DF028AFD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialWebsiteStudent.WebUI", "SocialWebsiteStudent\SocialWebsiteStudent.WebUI.csproj", "{6CAE8783-3AB0-4258-A18F-BED9DF028AFD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialWebsiteStudentTests", "SocialWebsiteStudentTests\SocialWebsiteStudentTests.csproj", "{5BE3F986-51B3-46AE-B088-4971068C4375}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SocialWebsiteStudent.Domain", "SocialWebsiteStudent.Domain\SocialWebsiteStudent.Domain.csproj", "{E8E3D574-6AF4-4791-84A7-D1E96A35D8CC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{5BE3F986-51B3-46AE-B088-4971068C4375}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5BE3F986-51B3-46AE-B088-4971068C4375}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5BE3F986-51B3-46AE-B088-4971068C4375}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8E3D574-6AF4-4791-84A7-D1E96A35D8CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E3D574-6AF4-4791-84A7-D1E96A35D8CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E3D574-6AF4-4791-84A7-D1E96A35D8CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E3D574-6AF4-4791-84A7-D1E96A35D8CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

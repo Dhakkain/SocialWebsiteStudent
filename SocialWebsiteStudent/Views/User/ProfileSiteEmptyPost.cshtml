@@ -1,4 +1,5 @@
-﻿@model IEnumerable<SocialWebsiteStudent.Models.ApplicationUser>
+﻿@using SocialWebsiteStudent.Domain.DatabaseContext
+@model IEnumerable<SocialWebsiteStudent.Domain.Models.ApplicationUser>
 
 @{
     var x = Request.QueryString["name"];

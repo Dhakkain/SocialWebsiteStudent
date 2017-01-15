@@ -1,9 +1,9 @@
-namespace SocialWebsiteStudent.Migrations
+namespace SocialWebsiteStudent.Domain.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class claimsy : DbMigration
+    public partial class mainMigration2 : DbMigration
     {
         public override void Up()
         {

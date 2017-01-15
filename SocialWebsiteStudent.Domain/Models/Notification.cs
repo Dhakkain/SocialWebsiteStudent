@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using Microsoft.AspNet.Identity.EntityFramework;
+using SocialWebsiteStudent.Domain.DatabaseContext;
 
-namespace SocialWebsiteStudent.Models
+namespace SocialWebsiteStudent.Domain.Models
 {
     public class Notification
     {
@@ -13,7 +12,7 @@ namespace SocialWebsiteStudent.Models
         public DateTime NotificationDateTime { get; set; }
         public bool Open { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
+        public virtual IdentityUser ApplicationUser { get; set; }
         public virtual Post Post { get; set; }
         public virtual Message Message { get; set; }
     }

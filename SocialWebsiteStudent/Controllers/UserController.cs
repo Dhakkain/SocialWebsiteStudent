@@ -7,35 +7,39 @@ using Kendo.Mvc.Extensions;
 using Microsoft.Ajax.Utilities;
 using SocialWebsiteStudent.Models;
 using Microsoft.AspNet.Identity.Owin;
+using SocialWebsiteStudent.Domain.DatabaseContext;
+using SocialWebsiteStudent.Domain.Repository.Interface;
 
 namespace SocialWebsiteStudent.Controllers
 {
     public class UserController : Controller
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly IUserRepository _repo;
+
+        public UserController(IUserRepository repo)
+        {
+            _repo = repo;
+        }
 
         public ActionResult ProfileSite(string name)
         {
-            var profileView = (from post in _db.Posts
-                where post.ApplicationUser.UserName == name
-                orderby post.PostDateTime
-                select post);
+            var profileView = _repo.GetPosts(name);
+
             if (!profileView.Any())
             {
                 return RedirectToAction("ProfileSiteEmptyPost", new {name = name});
             }
-          
-            return View(profileView.ToList());
+
+            return View(profileView);
         }
 
         public ActionResult ProfileSiteEmptyPost(string name)
         {
-            var profile = from p in _db.Users where p.UserName == name select p;
+            var profile = _repo.GetUser(name);
 
             if (!profile.Any())
             {
                 return RedirectToAction("ErroResult", "Search");
-
             }
 
             return View(profile);
@@ -61,25 +65,26 @@ namespace SocialWebsiteStudent.Controllers
                     }
             }
 
-            var user = _db.Users.First(x => x.UserName == User.Identity.Name);
+            var user = _repo.GetUserByName(User.Identity.Name);
             user.UserPhoto = imageData;
-            _db.Users.AddOrUpdate(user);
-            _db.SaveChanges();
+
+            _repo.AddOrUpdate(user);
+            _repo.SaveChanges();
 
             return RedirectToAction("ProfileOptions");
         }
 
 
-        public JsonResult GetUser(string term)
-        {
-            var result = (from user in _db.Users
-                where user.UserName.StartsWith(term)
-                select new
-                {
-                    startfrom = user.UserName
-                }).Distinct();
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
+        //public JsonResult GetUser(string term)
+        //{
+        //    var result = (from user in _db.Users
+        //        where user.UserName.StartsWith(term)
+        //        select new
+        //        {
+        //            startfrom = user.UserName
+        //        }).Distinct();
+        //    return Json(result, JsonRequestBehavior.AllowGet);
+        //}
 
         public FileContentResult UserPhotos(string name)
         {
@@ -96,10 +101,7 @@ namespace SocialWebsiteStudent.Controllers
                 return File(imageData, "image/png");
             }
 
-            // to get the user details to load user Image 
-            var bdUsers = HttpContext.GetOwinContext().Get<ApplicationDbContext>();
-            var userImage = bdUsers.Users.FirstOrDefault(x => x.UserName == name);
-
+            var userImage = _repo.GetUserByName(name);
             return new FileContentResult(userImage.UserPhoto, "image/jpeg");
         }
     }

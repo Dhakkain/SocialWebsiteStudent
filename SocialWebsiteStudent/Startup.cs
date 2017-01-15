@@ -2,6 +2,8 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin;
 using Owin;
+using SocialWebsiteStudent.Domain.DatabaseContext;
+using SocialWebsiteStudent.Domain.Models;
 using SocialWebsiteStudent.Models;
 
 [assembly: OwinStartupAttribute(typeof(SocialWebsiteStudent.Startup))]

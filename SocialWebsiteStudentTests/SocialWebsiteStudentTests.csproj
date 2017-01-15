@@ -64,6 +64,22 @@
       <HintPath>..\packages\Moq.4.5.28\lib\net45\Moq.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="nunit.framework, Version=3.5.0.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Simple.Data, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simple.Data.Core.0.19.0.0\lib\net40\Simple.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Simple.Data.Ado, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simple.Data.Ado.0.19.0.0\lib\net40\Simple.Data.Ado.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Simple.Data.Mocking, Version=0.19.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Simple.Data.Mocking.0.19.0.0\lib\net40\Simple.Data.Mocking.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -109,13 +125,18 @@
     <Compile Include="Controllers\PostControllerTests.cs" />
     <Compile Include="Controllers\SearchControllerTests.cs" />
     <Compile Include="Controllers\TagControllerTests.cs" />
+    <Compile Include="Helpers\DataGenerator.cs" />
     <Compile Include="Models\ApplicationDbContextTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SocialWebsiteStudent\SocialWebsiteStudent.csproj">
+    <ProjectReference Include="..\SocialWebsiteStudent.Domain\SocialWebsiteStudent.Domain.csproj">
+      <Project>{E8E3D574-6AF4-4791-84A7-D1E96A35D8CC}</Project>
+      <Name>SocialWebsiteStudent.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SocialWebsiteStudent\SocialWebsiteStudent.WebUI.csproj">
       <Project>{6CAE8783-3AB0-4258-A18F-BED9DF028AFD}</Project>
-      <Name>SocialWebsiteStudent</Name>
+      <Name>SocialWebsiteStudent.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

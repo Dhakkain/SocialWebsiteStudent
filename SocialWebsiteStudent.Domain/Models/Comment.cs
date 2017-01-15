@@ -1,6 +1,7 @@
 ﻿using System;
+using SocialWebsiteStudent.Domain.DatabaseContext;
 
-namespace SocialWebsiteStudent.Models
+namespace SocialWebsiteStudent.Domain.Models
 {
     public class Comment
     {

@@ -4,6 +4,8 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
+using SocialWebsiteStudent.Domain.DatabaseContext;
+using SocialWebsiteStudent.Domain.Models;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent

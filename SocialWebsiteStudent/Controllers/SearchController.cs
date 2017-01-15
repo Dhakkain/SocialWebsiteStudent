@@ -1,13 +1,19 @@
 ﻿using System.Linq;
 using System.Web.Mvc;
+using SocialWebsiteStudent.Domain.DatabaseContext;
+using SocialWebsiteStudent.Domain.Repository.Interface;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers
 {
     public class SearchController : Controller
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly ISearchRepository _repo;
 
+        public SearchController(ISearchRepository repo)
+        {
+            _repo = repo;
+        }
         // Action for searching result,
         // User can found tag, user, any word from post and comment 
         public ActionResult FoundResult(string value)
@@ -36,13 +42,8 @@ namespace SocialWebsiteStudent.Controllers
         // Jak dobrać select aby pobrało tylko to co zawiera string. 
         public ActionResult ContentFoundResult(string foundContent)
         {
-            var found = (from f in _db.Posts
-                where
-                f.PostContent.Contains(foundContent) || f.Comment.Any(x => x.CommentContent.Contains(foundContent))
-                orderby f.PostDateTime
-                select f);
-
-            return View(found.ToList());
+            var found = _repo.GetFoundContent(foundContent);
+            return View(found);
         }
 
         // Shows error when user isn't found any record

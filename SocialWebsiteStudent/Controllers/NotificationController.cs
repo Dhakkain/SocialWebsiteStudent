@@ -4,23 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using SocialWebsiteStudent.Domain.DatabaseContext;
+using SocialWebsiteStudent.Domain.Repository.Interface;
 using SocialWebsiteStudent.Models;
 
 namespace SocialWebsiteStudent.Controllers
 {
     public class NotificationController : Controller
     {
-        private readonly ApplicationDbContext _db = new ApplicationDbContext();
+        private readonly INotificationRepository _repo;
+
+        public NotificationController(INotificationRepository repo)
+        {
+            _repo = repo;
+        }
 
         [Authorize]
         public ActionResult Notification()
         {
-            var currentUserId = User.Identity.GetUserId();
+            var currentUser = _repo.GetUser(User.Identity.Name);
 
-            var notificationForUser = (from notification in _db.Notifications
-                where notification.ApplicationUser.Id == currentUserId && notification.Open == false
-                select notification).ToList();
-
+            var notificationForUser = _repo.GetNotifications(currentUser);
 
             return View(notificationForUser);
         }
@@ -28,25 +32,30 @@ namespace SocialWebsiteStudent.Controllers
         [Authorize]
         public ActionResult ShowPost(int id)
         {
-            var modify = _db.Notifications.FirstOrDefault(x => x.Post.ID == id && x.Open == false);
+            var modify = _repo.SetOpenedMessage(id);
+            if (modify != null)
+            {
+                modify.Open = true;
+                _repo.SaveChanges();
+            }
 
-            modify.Open = true;
-            _db.SaveChanges();
 
-            var showPost = (from postin in _db.Posts
-                where postin.ID == id
-                select postin);
+            var showPost = _repo.GetPostById(id);
 
-            return View(showPost.ToList());
+            return View(showPost);
         }
 
         [Authorize]
         public ActionResult ShowNotificationMessage(int id)
         {
-            var modify = _db.Notifications.FirstOrDefault(x => x.Message.Id == id && x.Open == false);
+            var modify = _repo.SetOpenedMessage(id);
+            if (modify != null)
+            {
+                modify.Open = true;   
+                _repo.SaveChanges();
+            }
 
-            modify.Open = true;
-            _db.SaveChanges();
+
             return RedirectToAction("Inbox", "Message");
         }
     }
