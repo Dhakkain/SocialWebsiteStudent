@@ -14,6 +14,7 @@ Celem pracy jest stworzenie portalu społecznościowego przeznaczonego dla stude
 
 
 SocialWebsiteStudent.Domain- zawiera encje i logikę związaną z domeną biznesową, a przede wszystkim połączenie z bazą danych oraz wykonywanie na niej zapytań, 
+
 SocialWebsiteStudent - przechowuje kontrolery i widoki, zawiera interfejs użytkownika aplikacji. Ta warstwa zależy od warstwy pierwszej. 
 
 Wzorce projektowe:
